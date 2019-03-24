@@ -1,0 +1,22 @@
+baseURL = "http://jmg-duarte.github.io/"
+languageCode = "en-us"
+title = "José Duarte"
+theme = "basic"
+
+[[params.menu]]
+  name = "blog"
+  url = "blog/"
+
+[[params.menu]]
+  name = "about"
+  url = "about/"
+
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    respectDoNotTrack = true
+    useSessionStorage = true
+  [privacy.twitter]
+    enableDNT = true
+  [privacy.youtube]
+    privacyEnhanced = true
