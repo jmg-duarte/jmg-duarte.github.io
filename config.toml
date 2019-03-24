@@ -5,7 +5,7 @@ theme = "basic"
 
 [[params.menu]]
   name = "blog"
-  url = "blog/"
+  url = "posts/"
 
 [[params.menu]]
   name = "about"
