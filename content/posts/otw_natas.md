@@ -1,7 +1,6 @@
 ---
 title: "Over The Wire - Natas Walkthrough"
 date: 2019-03-24T15:59:46Z
-draft: true
 ---
 
 # Level 0
