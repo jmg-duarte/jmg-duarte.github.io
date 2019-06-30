@@ -234,3 +234,75 @@ Ahdiemoo1j
 ```
 
 And there is our password!
+
+# Level 3
+
+Going into Level 3, 
+we have yet another password challenge, 
+running the `level3` executable shows us a prompt for a password.
+
+```
+leviathan3@leviathan:~$ ./level3 
+Enter the password> password
+bzzzzzzzzap. WRONG
+```
+
+We grab our old friend `ltrace` and run `ltrace ./level3`, the following ensues.
+
+```
+__libc_start_main(0x8048618, 1, 0xffffd784, 0x80486d0 <unfinished ...>
+strcmp("h0no33", "kakaka")                                                        = -1
+printf("Enter the password> ")                                                    = 20
+fgets(Enter the password> password
+"password\n", 256, 0xf7fc55a0)                                              = 0xffffd590
+strcmp("password\n", "snlprintf\n")                                               = -1
+puts("bzzzzzzzzap. WRONG"bzzzzzzzzap. WRONG
+)                                                        = 19
++++ exited (status 0) +++
+```
+
+While in the second line we have a clearly false comparison, 
+after `fgets` we see our input being compared to `snlprintf`,
+so we try again with `snlprintf` as input.
+
+```
+__libc_start_main(0x8048618, 1, 0xffffd784, 0x80486d0 <unfinished ...>
+strcmp("h0no33", "kakaka")                                                        = -1
+printf("Enter the password> ")                                                    = 20
+fgets(Enter the password> snlprintf
+"snlprintf\n", 256, 0xf7fc55a0)                                             = 0xffffd590
+strcmp("snlprintf\n", "snlprintf\n")                                              = 0
+puts("[You've got shell]!"[You've got shell]!
+)                                                       = 20
+geteuid()                                                                         = 12003
+geteuid()                                                                         = 12003
+setreuid(12003, 12003)                                                            = 0
+system("/bin/sh"$ whoami
+leviathan3
+$ exit
+ <no return ...>
+--- SIGCHLD (Child exited) ---
+<... system resumed> )                                                            = 0
++++ exited (status 0) +++
+```
+
+This got us shell! 
+However when running with `ltrace` the program runs within the `leviathan3` user.
+Ditching `ltrace` and running the executable alone gives us the following result.
+
+```
+/level3 
+Enter the password> snlprintf
+[You've got shell]!
+$ whoami
+leviathan4
+```
+
+Meaning we can get the password for Level 4.
+
+```
+$ cat /etc/leviathan_pass/leviathan4
+vuH0coox6m
+```
+
+Ta-daaaaa!
