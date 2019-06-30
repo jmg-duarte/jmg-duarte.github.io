@@ -306,3 +306,27 @@ vuH0coox6m
 ```
 
 Ta-daaaaa!
+
+# Level 4
+
+Running `ls -la` so that nothing escapes our grasp shows the following.
+
+```
+total 24
+drwxr-xr-x  3 root root       4096 Oct 29  2018 .
+drwxr-xr-x 10 root root       4096 Oct 29  2018 ..
+-rw-r--r--  1 root root        220 May 15  2017 .bash_logout
+-rw-r--r--  1 root root       3526 May 15  2017 .bashrc
+-rw-r--r--  1 root root        675 May 15  2017 .profile
+dr-xr-x---  2 root leviathan4 4096 Oct 29  2018 .trash
+```
+
+Diving in the `.trash` we find the executable `bin`.
+Running it prints the following output.
+
+```
+01010100 01101001 01110100 01101000 00110100 01100011 01101111 01101011 01100101 01101001 00001010
+```
+
+Passing it through a binary to ascii converter gives us the password to the next level - `Tith4cokei`.
+
