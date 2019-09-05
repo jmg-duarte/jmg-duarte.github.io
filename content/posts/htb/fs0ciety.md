@@ -1,8 +1,7 @@
 ---
 title: "Hack the Box - fs0ciety"
 date: 2019-09-04T21:15:03+01:00
-draft: true
----
+--- 
 
 The other day I picked up Hack the Box again. 
 While I don't do boxes, I do challenges given that they are more self contained and don't require much of a setup.
