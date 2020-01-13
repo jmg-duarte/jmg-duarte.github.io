@@ -1,6 +1,6 @@
 Hello! My name is José Duarte and I am currently finishing my Master's degree in Computer Science at FCT NOVA.
 
-I'm eager to learn more and expand my horizons, constantly looking for a new side project from which I can learn new skills.
+I am eager to learn more and expand my horizons, constantly looking for a new side project from which I can learn new skills.
 I love automating processes and making them go fast!
 
 
@@ -8,6 +8,8 @@ I love automating processes and making them go fast!
 
 - FCT NOVA Cybersecurity Group
     - Co-Founder, Administrator & Speaker - September 2018 - Present
+        - Manage the group
+        - Host weekly workshops
 
 - Caixa Mágica
     - Internship - June 2019 - September 2019
