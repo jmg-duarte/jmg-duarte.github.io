@@ -1,7 +1,7 @@
 Hello! My name is José Duarte and I am currently finishing my Master's degree in Computer Science at FCT NOVA.
 
-I am eager to learn more and expand my horizons, constantly looking for a new side project from which I can learn new skills.
-I love automating processes and making them go fast!
+I am eager to learn more and expand my horizons, constantly looking for experiences and projects, always making the best out of every one.
+I am a team player, being able to assume responsibility for my errors and willing to improve my skills, being receptive to feedback and able to learn from mistakes.
 
 
 ### Work Experience
@@ -42,11 +42,6 @@ I love automating processes and making them go fast!
 - Distributed Systems & Computer Networks
 - Internet of Things
 
-### Languages
-
-- Portuguese - Native
-- English - Proficient
-
 ### Professional Skills
 
 #### Languages
@@ -64,3 +59,16 @@ I love automating processes and making them go fast!
 - Gradle
 - Heroku
 - Linux
+
+### Soft Skills
+
+- Teamwork
+- Critical Thinking
+- Willingness to Learn & Accept Feedback
+- Open Minded
+- Detail Oriented
+
+### Languages
+
+- Portuguese - Native
+- English - Proficient
