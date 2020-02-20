@@ -15,7 +15,7 @@ I am a team player, being able to assume responsibility for my errors and willin
 
 - Caixa Mágica
     - Internship - June 2019 - September 2019
-        - Developed an Android library for the Portuguese Citizen Card
+        - Developed an Android library & demo app for the Portuguese Citizen Card
 
 - FCT NOVA/NOVALINCS
     - Research Project - February 2018 - July 2018
