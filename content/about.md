@@ -1,5 +1,7 @@
 Hello! My name is José Duarte and I am currently finishing my Master's degree in Computer Science at FCT NOVA.
 
+<img style="float: right;max-width: 20%;" src="/about/profile.png"/>
+
 I am eager to learn more and expand my horizons, constantly looking for experiences and projects, always making the best out of every one.
 I am a team player, being able to assume responsibility for my errors and willing to improve my skills, being receptive to feedback and able to learn from mistakes.
 
