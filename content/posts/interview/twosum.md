@@ -153,7 +153,6 @@ Before we start actually coding, we need to define the rules.
 - If `hash(v)` equals the current index, the number is in the right place and we should not move it
 - If `v` equals the symmetric of the value on index `hash(v)`, we found the pair and return
 - If `hash(v)` equals `hash(arr[hash(v)])` we have a colision, we `continue` to the next iteration
-- If `v` is equal to `arr[hash(v)]` we have a duplicate and remove the value at the current index
 
 After all of this, we didn't return or skip to the next iteration, we swap the current value with the value at `hash(v)`.
 
@@ -178,12 +177,7 @@ def in_place_hashing(arr):
                 return True
 
             # If the target number is in the position it should be, theres nothing we can do
-            if c_idx == t_idx:
-                continue
-
-            # If the current value is equal to the target, we remove the out of order duplicate
-            if value == arr[c_idx]:
-                arr[idx] = 0
+            if c_idx == t_idx and arr[t_idx] != 0:
                 continue
 
             # Swap the numbers out
@@ -216,12 +210,7 @@ def simple_zero_sum(arr):
             if value + arr[c_idx] == 0:
                 return True
 
-            if c_idx == t_idx:
-                continue
-
-            if value == arr[c_idx]:
-                arr[idx] = 0
-                changes += 1
+            if c_idx == t_idx and arr[t_idx] != 0:
                 continue
 
             v = arr[idx]
