@@ -24,8 +24,9 @@ So, in this level they disabled right-clicking (or at least they tried, in Firef
 You have several ways to go around this!
 
 For Firefox (besides right clicking) and Chrome you can:
-    - Write `view-source:` before the URL and you'll be able to see the source, just like before
-    - Use the shortcut for the Inspector - `Ctrl + Shift + I`
+
+- Write `view-source:` before the URL and you'll be able to see the source, just like before
+- Use the shortcut for the Inspector - `Ctrl + Shift + I`
 
 Afterwards you'll be able to see the following on the page source code
 
