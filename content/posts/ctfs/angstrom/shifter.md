@@ -1,6 +1,6 @@
 ---
 title: "ångstromCTF 2020 - Shifter Writeup"
-date: 2020-03-18T19:44:29Z
+date: 2020-03-19T8:44:29Z
 ---
 
 Connecting to Shifter we are greeted with the following:

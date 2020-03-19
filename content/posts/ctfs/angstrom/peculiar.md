@@ -1,11 +1,11 @@
 ---
-title: "ångstromCTF 2020 - Shifter Writeup"
-date: 2020-03-19T19:44:29Z
+title: "ångstromCTF 2020 - Peculiar Query Writeup"
+date: 2020-03-19T8:44:29Z
 draft: true
 ---
 
 We are greeted with a simple page,
-we can make queries and see the [source](/ctf/angstrom/peculiar_query/peculiar_query.js).
+we can make queries and see the [source](/ctf/angstrom/peculiar_query/index.js).
 
 This challenge stumped me, it took days and I wake up in the middle of the night screaming how stupid I am.
 

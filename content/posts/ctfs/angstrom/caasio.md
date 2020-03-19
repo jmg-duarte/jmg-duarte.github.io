@@ -1,9 +1,9 @@
 ---
 title: "ångstromCTF 2020 - CaaSio Writeup"
-date: 2020-03-19T19:44:29Z
+date: 2020-03-19T8:44:29Z
 ---
 
-For CaaSio we had access to a calculator. The source is [here](/ctf/angstrom/caasio/caasio.js).
+For CaaSio we had access to a calculator. The source is [here](/ctf/angstrom/caasio/index.js).
 
 Later in the execution our query is `eval`'d so obviously we need to run something interesting there.
 
