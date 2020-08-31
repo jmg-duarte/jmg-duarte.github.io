@@ -52,15 +52,20 @@ I am a team player, being able to assume responsibility for my errors and willin
 - Kotlin
 - Python
 - Go
+- Rust
+- C
+- C++
 - Bash
 
 #### Tools & Platforms
 
 - Git
+- Docker
 - Maven
 - Gradle
-- Heroku
 - Linux
+- Azure
+- Heroku
 
 ### Soft Skills
 
