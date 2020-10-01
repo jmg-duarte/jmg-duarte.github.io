@@ -1,4 +1,4 @@
-baseURL = "http://jmg-duarte.github.io/"
+baseURL = "https://jmg-duarte.github.io/"
 languageCode = "en-us"
 title = "José Duarte"
 theme = "cactus"
@@ -12,6 +12,15 @@ theme = "cactus"
 [[params.social]]
   name = "github"
   link = "https://github.com/jmg-duarte"
+
+[[params.social]]
+  name = "ello"
+  link = "https://ello.co/jmgduarte"
+
+[[params.social]]
+  name = "unsplash"
+  link = "https://unsplash.com/@jmgduarte"
+
 
 [markup]
   [markup.highlight]
