@@ -8,6 +8,7 @@ theme = "cactus"
   mainSection="posts"
   # showAllPostsOnHomePage = true
   mathjax = true
+  description="Hello, I am José and on the internet I am known as crit. I am a MSc student at FCT-NOVA and a CTF player at RootLee. In interests revolve around music, photography and computers."
 
 [[params.social]]
   name = "github"
