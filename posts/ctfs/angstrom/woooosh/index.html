@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> ångstromCTF 2020 - Woooosh Writeup | José Duarte</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta property="og:title" content="ångstromCTF 2020 - Woooosh Writeup" />
+<meta property="og:description" content="For Woooosh we had a clicker game with an obfuscated clicker game.
+The backend source was given. They used socket.io, so we can do the same.
+Looking at the source they use the first shape as the circle.
+if (dist(game.shapes[0].x, game.shapes[1].y, x, y) &lt; 10) { game.score&#43;&#43;; } So when we receive the generated shapes we just need to pick the first!
+I opened a socket and started by emitting start." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jmg-duarte.github.io/posts/ctfs/angstrom/woooosh/" />
+<meta property="article:published_time" content="2020-03-19T08:44:29+00:00" />
+<meta property="article:modified_time" content="2020-03-19T08:44:29+00:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ångstromCTF 2020 - Woooosh Writeup"/>
+<meta name="twitter:description" content="For Woooosh we had a clicker game with an obfuscated clicker game.
+The backend source was given. They used socket.io, so we can do the same.
+Looking at the source they use the first shape as the circle.
+if (dist(game.shapes[0].x, game.shapes[1].y, x, y) &lt; 10) { game.score&#43;&#43;; } So when we receive the generated shapes we just need to pick the first!
+I opened a socket and started by emitting start."/>
+
+  
+  
+    
+  
+  
+  <link rel="stylesheet" href="https://jmg-duarte.github.io/css/style-white.css">
+  
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+<link rel="icon" type="image/png" href="https://jmg-duarte.github.io/images/favicon.ico" />
+
+  
+</head>
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py4">
+
+  <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li>
+          <a class="icon" href=" https://jmg-duarte.github.io/posts/ctfs/utctf/chatt/">
+            <i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a class="icon" href="https://jmg-duarte.github.io/posts/ctfs/angstrom/shifter/">
+            <i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i>
+          </a>
+        </li>
+        
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+            <i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="#">
+            <i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i>
+          </a>
+        </li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f">
+      <i class="fab fa-facebook " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&text=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-twitter " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-linkedin " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&is_video=false&description=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-pinterest " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f">
+      <i class="fas fa-envelope " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-get-pocket " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-reddit " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-stumbleupon " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-digg " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&name=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup&description=For%20Woooosh%20we%20had%20a%20clicker%20game%20with%20an%20obfuscated%20clicker%20game.%0aThe%20backend%20source%20was%20given.%20They%20used%20socket.io%2c%20so%20we%20can%20do%20the%20same.%0aLooking%20at%20the%20source%20they%20use%20the%20first%20shape%20as%20the%20circle.%0aif%20%28dist%28game.shapes%5b0%5d.x%2c%20game.shapes%5b1%5d.y%2c%20x%2c%20y%29%20%26lt%3b%2010%29%20%7b%20game.score%2b%2b%3b%20%7d%20So%20when%20we%20receive%20the%20generated%20shapes%20we%20just%20need%20to%20pick%20the%20first%21%0aI%20opened%20a%20socket%20and%20started%20by%20emitting%20start.">
+      <i class="fab fa-tumblr " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&t=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-hacker-news " aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <nav id="TableOfContents"></nav>
+    </div>
+  </span>
+</div>
+
+
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+      <h1 class="posttitle" itemprop="name headline">
+        ångstromCTF 2020 - Woooosh Writeup
+      </h1>
+      <div class="meta">
+        
+        <div class="postdate">
+          
+          <time datetime="2020-03-19 08:44:29 &#43;0000 UTC" itemprop="datePublished">2020-03-19</time>
+          
+        </div>
+        
+        
+      </div>
+    </header>
+
+  
+    <div class="content" itemprop="articleBody">
+      <p>For Woooosh we had a clicker game with an obfuscated clicker game.</p>
+<p><img src="/ctf/angstrom/woooosh/wooooosh.png" alt="Woooosh"></p>
+<p>The backend <a href="/ctf/angstrom/wooooosh/index.js">source</a> was given.
+They used <a href="https://socket.io/"><code>socket.io</code></a>, so we can do the same.</p>
+<p>Looking at the source they use the first shape as the circle.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">dist</span><span style="color:#111">(</span><span style="color:#75af00">game</span><span style="color:#111">.</span><span style="color:#75af00">shapes</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">].</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">game</span><span style="color:#111">.</span><span style="color:#75af00">shapes</span><span style="color:#111">[</span><span style="color:#ae81ff">1</span><span style="color:#111">].</span><span style="color:#75af00">y</span><span style="color:#111">,</span> <span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">y</span><span style="color:#111">)</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#75af00">game</span><span style="color:#111">.</span><span style="color:#75af00">score</span><span style="color:#f92672">++</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+</code></pre></div><p>So when we receive the generated shapes we just need to pick the first!</p>
+<p>I opened a socket and started by emitting <code>start</code>.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75af00">socket</span><span style="color:#111">.</span><span style="color:#75af00">emit</span><span style="color:#111">(</span><span style="color:#d88200">&#34;start&#34;</span><span style="color:#111">);</span>
+</code></pre></div><p>Afterwards we just need to listen for events and reply.
+Bellow is the clicking function.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75af00">socket</span><span style="color:#111">.</span><span style="color:#75af00">on</span><span style="color:#111">(</span><span style="color:#d88200">&#39;shapes&#39;</span><span style="color:#111">,</span> <span style="color:#75af00">shapes</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+    <span style="color:#75af00">socket</span><span style="color:#111">.</span><span style="color:#75af00">emit</span><span style="color:#111">(</span><span style="color:#d88200">&#34;click&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">shapes</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">].</span><span style="color:#75af00">x</span><span style="color:#111">,</span> <span style="color:#75af00">shapes</span><span style="color:#111">[</span><span style="color:#ae81ff">0</span><span style="color:#111">].</span><span style="color:#75af00">y</span><span style="color:#111">);</span>
+<span style="color:#111">});</span>
+</code></pre></div><p>And you&rsquo;ll need this to get the flag.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75af00">socket</span><span style="color:#111">.</span><span style="color:#75af00">on</span><span style="color:#111">(</span><span style="color:#d88200">&#39;disp&#39;</span><span style="color:#111">,</span> <span style="color:#75af00">disp</span> <span style="color:#111">=&gt;</span> <span style="color:#111">{</span>
+    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#75af00">disp</span><span style="color:#111">);</span>
+<span style="color:#111">});</span>
+</code></pre></div><p>Full source <a href="/ctf/angstrom/woooosh/woooosh.js">here</a>;</p>
+
+    </div>
+  </article>
+
+  
+  
+
+
+
+
+
+  <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about">About</a></li>
+         
+          <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <nav id="TableOfContents"></nav>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f">
+      <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&text=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&is_video=false&description=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-pinterest fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f">
+      <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-reddit fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&title=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-digg fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&name=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup&description=For%20Woooosh%20we%20had%20a%20clicker%20game%20with%20an%20obfuscated%20clicker%20game.%0aThe%20backend%20source%20was%20given.%20They%20used%20socket.io%2c%20so%20we%20can%20do%20the%20same.%0aLooking%20at%20the%20source%20they%20use%20the%20first%20shape%20as%20the%20circle.%0aif%20%28dist%28game.shapes%5b0%5d.x%2c%20game.shapes%5b1%5d.y%2c%20x%2c%20y%29%20%26lt%3b%2010%29%20%7b%20game.score%2b%2b%3b%20%7d%20So%20when%20we%20receive%20the%20generated%20shapes%20we%20just%20need%20to%20pick%20the%20first%21%0aI%20opened%20a%20socket%20and%20started%20by%20emitting%20start.">
+      <i class="fab fa-tumblr fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fctfs%2fangstrom%2fwoooosh%2f&t=%c3%a5ngstromCTF%202020%20-%20Woooosh%20Writeup">
+      <i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;">
+          <i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;">
+          <i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;">
+          <i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+          <i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+
+  <footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2020  José Duarte 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+
+  </div>
+</body>
+
+<link rel="stylesheet" href=/lib/font-awesome/css/all.min.css>
+<script src=/lib/jquery/jquery.min.js></script>
+<script src=/js/main.js></script>
+
+
+  
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</html>

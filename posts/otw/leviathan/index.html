@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> Over The Wire - Leviathan Walkthrough | José Duarte</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta property="og:title" content="Over The Wire - Leviathan Walkthrough" />
+<meta property="og:description" content="Level 0 Arriving at Level 0 we can use ls -l to print any files, however it prints:
+total 0 So we should maybe use ls -la which should print:
+total 24 drwxr-xr-x 3 root root 4096 Oct 29 21:17 . drwxr-xr-x 10 root root 4096 Oct 29 21:17 .. drwxr-x--- 2 leviathan1 leviathan0 4096 Oct 29 21:17 .backup -rw-r--r-- 1 root root 220 May 15 2017 .bash_logout -rw-r--r-- 1 root root 3526 May 15 2017 ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jmg-duarte.github.io/posts/otw/leviathan/" />
+<meta property="article:published_time" content="2019-03-31T00:05:08+00:00" />
+<meta property="article:modified_time" content="2019-03-31T00:05:08+00:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Over The Wire - Leviathan Walkthrough"/>
+<meta name="twitter:description" content="Level 0 Arriving at Level 0 we can use ls -l to print any files, however it prints:
+total 0 So we should maybe use ls -la which should print:
+total 24 drwxr-xr-x 3 root root 4096 Oct 29 21:17 . drwxr-xr-x 10 root root 4096 Oct 29 21:17 .. drwxr-x--- 2 leviathan1 leviathan0 4096 Oct 29 21:17 .backup -rw-r--r-- 1 root root 220 May 15 2017 .bash_logout -rw-r--r-- 1 root root 3526 May 15 2017 ."/>
+
+  
+  
+    
+  
+  
+  <link rel="stylesheet" href="https://jmg-duarte.github.io/css/style-white.css">
+  
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+<link rel="icon" type="image/png" href="https://jmg-duarte.github.io/images/favicon.ico" />
+
+  
+</head>
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py4">
+
+  <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li>
+          <a class="icon" href=" https://jmg-duarte.github.io/posts/otw/natas/">
+            <i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a class="icon" href="https://jmg-duarte.github.io/posts/htb/fs0ciety/">
+            <i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i>
+          </a>
+        </li>
+        
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+            <i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="#">
+            <i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i>
+          </a>
+        </li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f">
+      <i class="fab fa-facebook " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&text=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-twitter " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-linkedin " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&is_video=false&description=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-pinterest " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Over%20The%20Wire%20-%20Leviathan%20Walkthrough&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f">
+      <i class="fas fa-envelope " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-get-pocket " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-reddit " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-stumbleupon " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-digg " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&name=Over%20The%20Wire%20-%20Leviathan%20Walkthrough&description=Level%200%20Arriving%20at%20Level%200%20we%20can%20use%20ls%20-l%20to%20print%20any%20files%2c%20however%20it%20prints%3a%0atotal%200%20So%20we%20should%20maybe%20use%20ls%20-la%20which%20should%20print%3a%0atotal%2024%20drwxr-xr-x%203%20root%20root%204096%20Oct%2029%2021%3a17%20.%20drwxr-xr-x%2010%20root%20root%204096%20Oct%2029%2021%3a17%20..%20drwxr-x---%202%20leviathan1%20leviathan0%204096%20Oct%2029%2021%3a17%20.backup%20-rw-r--r--%201%20root%20root%20220%20May%2015%202017%20.bash_logout%20-rw-r--r--%201%20root%20root%203526%20May%2015%202017%20.">
+      <i class="fab fa-tumblr " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&t=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-hacker-news " aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <nav id="TableOfContents"></nav>
+    </div>
+  </span>
+</div>
+
+
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+      <h1 class="posttitle" itemprop="name headline">
+        Over The Wire - Leviathan Walkthrough
+      </h1>
+      <div class="meta">
+        
+        <div class="postdate">
+          
+          <time datetime="2019-03-31 00:05:08 &#43;0000 UTC" itemprop="datePublished">2019-03-31</time>
+          
+        </div>
+        
+        
+      </div>
+    </header>
+
+  
+    <div class="content" itemprop="articleBody">
+      <h1 id="level-0">Level 0</h1>
+<p>Arriving at Level 0 we can use <code>ls -l</code> to print any files, however it prints:</p>
+<pre><code>total 0
+</code></pre><p>So we should maybe use <code>ls -la</code> which should print:</p>
+<pre><code>total 24
+drwxr-xr-x  3 root       root       4096 Oct 29 21:17 .
+drwxr-xr-x 10 root       root       4096 Oct 29 21:17 ..
+drwxr-x---  2 leviathan1 leviathan0 4096 Oct 29 21:17 .backup
+-rw-r--r--  1 root       root        220 May 15  2017 .bash_logout
+-rw-r--r--  1 root       root       3526 May 15  2017 .bashrc
+-rw-r--r--  1 root       root        675 May 15  2017 .profile
+</code></pre><p>Because according to <code>man ls</code>:</p>
+<pre><code>-a, --all
+              do not ignore entries starting with .
+</code></pre><p>We <code>cd .backup &amp;&amp; ls -la</code> in order to get into the directory and print the contents and get:</p>
+<pre><code>total 140
+drwxr-x--- 2 leviathan1 leviathan0   4096 Oct 29 21:17 .
+drwxr-xr-x 3 root       root         4096 Oct 29 21:17 ..
+-rw-r----- 1 leviathan1 leviathan0 133259 Oct 29 21:17 bookmarks.html
+</code></pre><p>We need to read the <code>bookmarks.html</code> and the easiest way is using <code>cat</code>, however there&rsquo;s a problem, the file is extremely long!
+Time to filter it! We pipe it to <code>grep</code> and search for <code>leviathan</code> given the password should probably be referenced that way!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat bookmarks.html <span style="color:#111">|</span> grep leviathan
+</code></pre></div><p>And lo and behold!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#111">&lt;</span><span style="color:#f92672">DT</span><span style="color:#111">&gt;&lt;</span><span style="color:#f92672">A</span> <span style="color:#75af00">HREF</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;http://leviathan.labs.overthewire.org/passwordus.html | This will be fixed later, the password for leviathan1 is rioGegei8m&#34;</span> <span style="color:#75af00">ADD_DATE</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;1155384634&#34;</span> <span style="color:#75af00">LAST_CHARSET</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;ISO-8859-1&#34;</span> <span style="color:#75af00">ID</span><span style="color:#f92672">=</span><span style="color:#d88200">&#34;rdf:#$2wIU71&#34;</span><span style="color:#111">&gt;</span>password to leviathan1<span style="color:#111">&lt;/</span><span style="color:#f92672">A</span><span style="color:#111">&gt;</span>
+</code></pre></div><h1 id="level-1">Level 1</h1>
+<p>Again and moving forward, our first command when we arrive to the level is <code>ls -la</code>.</p>
+<p>This time the output is:</p>
+<pre><code>total 28
+drwxr-xr-x  2 root       root       4096 Oct 29 21:17 .
+drwxr-xr-x 10 root       root       4096 Oct 29 21:17 ..
+-rw-r--r--  1 root       root        220 May 15  2017 .bash_logout
+-rw-r--r--  1 root       root       3526 May 15  2017 .bashrc
+-r-sr-x---  1 leviathan2 leviathan1 7452 Oct 29 21:17 check
+-rw-r--r--  1 root       root        675 May 15  2017 .profile
+</code></pre><p>Uh, what is that check? Lets find out, we run <code>file</code> on it and we get back:</p>
+<pre><code>check: setuid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.6.32, BuildID[sha1]=c735f6f3a3a94adcad8407cc0fda40496fd765dd, not stripped
+</code></pre><p>Since it is an executable we can first try to see what it does!
+When executing it, it asks us for a password, if we fail it closes&hellip;</p>
+<p>We can try to find out the string using <code>strings</code> on it, however it doesn&rsquo;t provide anything meaningful in this case.</p>
+<p>Introducing <code>ltrace</code>!</p>
+<pre><code>ltrace is a program that simply runs the specified command until it exits. It intercepts and records the dynamic library calls which are called by the executed process and the signals which are received by that process. It can also intercept and print the system calls executed by the program.
+</code></pre><p>Let&rsquo;s try it out, run <code>ltrace ./check</code>, the program will start running as normal however you can already see a lot of information about what&rsquo;s going on.</p>
+<p>Using <code>test</code> as our password the output we get from <code>ltrace</code> is this.</p>
+<pre><code>__libc_start_main(0x804853b, 1, 0xffffd794, 0x8048610 &lt;unfinished ...&gt;
+printf(&quot;password: &quot;)                                                                                                                                                 = 10
+getchar(1, 0, 0x65766f6c, 0x646f6700password: test
+)                                                                                                                                = 116
+getchar(1, 0, 0x65766f6c, 0x646f6700)                                                                                                                                = 101
+getchar(1, 0, 0x65766f6c, 0x646f6700)                                                                                                                                = 115
+strcmp(&quot;tes&quot;, &quot;sex&quot;)                                                                                                                                                 = 1
+puts(&quot;Wrong password, Good Bye ...&quot;Wrong password, Good Bye ...
+)                                                                                                                                 = 29
++++ exited (status 0) +++
+</code></pre><p>We can see it calls <code>strcmp</code> with the first 3 characters from the input password and compares them with <code>sex</code>.</p>
+<p>Trying is as a password gives us another shell! Did our user changed? Running <code>whoami</code> we get the following:</p>
+<pre><code>leviathan2
+</code></pre><p>Uhhh! This means we can read the password for the next level!</p>
+<p>Running <code>cat /etc/leviathan_pass/leviathan2</code> outputs our password!</p>
+<pre><code>ougahZi8Ta
+</code></pre><h1 id="level-2">Level 2</h1>
+<p>This time we have <code>printfile</code>, since we have no clue what it does lets run it.</p>
+<p>An empty argument list yields:</p>
+<pre><code>*** File Printer ***
+Usage: ./printfile filename
+</code></pre><p>So we create a file on the <code>/tmp</code> folder with <code>echo &quot;test&quot; &gt;&gt; /tmp/printfile_test</code>,
+so now our file contains <code>test</code> and given the executable name we are hoping to see <code>test</code> being printed out.</p>
+<p>As expected <code>./printfile /tmp/printfile_test</code> prints out:</p>
+<pre><code>test
+</code></pre><p>Let&rsquo;s try the same, however using <code>ltrace</code>, the output is:</p>
+<pre><code>__libc_start_main(0x804852b, 2, 0xffffd774, 0x8048610 &lt;unfinished ...&gt;
+access(&quot;/tmp/printfile_test&quot;, 4)                                                                                                                                     = 0
+snprintf(&quot;/bin/cat /tmp/printfile_test&quot;, 511, &quot;/bin/cat %s&quot;, &quot;/tmp/printfile_test&quot;)                                                                                  = 28
+geteuid()                                                                                                                                                            = 12002
+geteuid()                                                                                                                                                            = 12002
+setreuid(12002, 12002)                                                                                                                                               = 0
+system(&quot;/bin/cat /tmp/printfile_test&quot;test
+ &lt;no return ...&gt;
+--- SIGCHLD (Child exited) ---
+&lt;... system resumed&gt; )                                                                                                                                               = 0
++++ exited (status 0) +++
+</code></pre><p>The second line <code>access(&quot;/tmp/printfile_test&quot;, 4)</code>,
+checks wether the calling process can access the file.</p>
+<p>As stated in the <code>access(2)</code> manpage:</p>
+<blockquote>
+<p><code>access()</code> checks whether the calling process can access the file <code>pathname</code>. If <code>pathname</code> is a symbolic link, it is dereferenced.</p>
+<p>(&hellip;)</p>
+<p>The check is done using the calling process&rsquo;s real UID and GID, rather than the effective IDs as is  done when actually attempting an operation (e.g., open(2)) on the file.</p>
+</blockquote>
+<p>So far we know the following:</p>
+<ul>
+<li><code>access</code> requires the file to exist</li>
+<li>It will check the permission based on the process real UID and GID
+<ul>
+<li>This means that it checks if the user calling the process has the permissions and not the program itself</li>
+</ul>
+</li>
+</ul>
+<p>If we go further we can see that two calls to <code>geteuid</code> are made, both returning <code>12002</code>.
+Running <code>id -u</code> we can verify that that is the ID of <code>leviathan2</code>.</p>
+<p>Afterwards we can observe a call to <code>setreuid</code>, a quick look in the manpages yields the following:</p>
+<blockquote>
+<p>setreuid() sets real and effective user IDs of the calling process.</p>
+</blockquote>
+<p>This means that we have a <code>setuid</code>-like binary in hands,
+and so we can&rsquo;t rely on <code>ltrace</code> to do a faithful job,
+while there is a flag addressing such issue:</p>
+<blockquote>
+<p><code>-u username</code></p>
+<p>Run command with the userid, groupid and supplementary groups of username. This option is only useful when running as root and enables the correct execution of setuid and/or setgid binaries.</p>
+</blockquote>
+<p>It only works for root,
+so when we want to try the &ldquo;final&rdquo; version we will always run without <code>ltrace</code>,
+this applies for further levels as well.</p>
+<p>Finally there is a call to <code>system</code>:</p>
+<pre><code>system(&quot;/bin/cat /tmp/printfile_test&quot;)
+</code></pre><p>This call will be executed with the priviledges set by <code>setreuid</code> and while when running with <code>ltrace</code>
+they are the same as the current level it is possible to think that without it,
+it is probably a more usefull call.</p>
+<p>This opens up a security hole given that the priviledges being checked with <code>access</code>
+are not the same as the ones when calling <code>system</code>.
+Furthermore the use of <code>%s</code> in <code>snprintf</code> means that
+we have control of the input over the command being run.</p>
+<p>Ideally we want to run the following command:</p>
+<pre><code>cat /etc/leviathan_pass/leviathan3
+</code></pre><p>However we do not have access to <code>/etc/leviathan_pass/leviathan3</code>,
+to any symbolic links given that they resolve to the file anyway,
+neither we can create a file called <code>test /etc/leviathan_pass/leviathan3</code>.</p>
+<p>However we can create one called <code>test link</code>, and then run <code>printfile &quot;test link&quot;</code>.
+This won&rsquo;t be very useful unless either <code>test</code> or <code>link</code> are symbolic links to <code>/etc/leviathan_pass/leviathan3</code>.
+To do so, we run</p>
+<pre><code>touch &quot;test link&quot;
+ln -s /etc/leviathan_pass/leviathan3 link
+~/printfile &quot;test link&quot;
+</code></pre><p>Which will create the dummy file for the <code>printfile</code> to take and check access over,
+create a symbolic link to <code>/etc/leviathan_pass/leviathan3</code> named <code>link</code>
+and finally run <code>~/printfile &quot;test link&quot;</code> yielding:</p>
+<pre><code>/bin/cat: test: No such file or directory
+Ahdiemoo1j
+</code></pre><p>And there is our password!</p>
+<h1 id="level-3">Level 3</h1>
+<p>Going into Level 3,
+we have yet another password challenge,
+running the <code>level3</code> executable shows us a prompt for a password.</p>
+<pre><code>leviathan3@leviathan:~$ ./level3 
+Enter the password&gt; password
+bzzzzzzzzap. WRONG
+</code></pre><p>We grab our old friend <code>ltrace</code> and run <code>ltrace ./level3</code>, the following ensues.</p>
+<pre><code>__libc_start_main(0x8048618, 1, 0xffffd784, 0x80486d0 &lt;unfinished ...&gt;
+strcmp(&quot;h0no33&quot;, &quot;kakaka&quot;)                                                        = -1
+printf(&quot;Enter the password&gt; &quot;)                                                    = 20
+fgets(Enter the password&gt; password
+&quot;password\n&quot;, 256, 0xf7fc55a0)                                              = 0xffffd590
+strcmp(&quot;password\n&quot;, &quot;snlprintf\n&quot;)                                               = -1
+puts(&quot;bzzzzzzzzap. WRONG&quot;bzzzzzzzzap. WRONG
+)                                                        = 19
++++ exited (status 0) +++
+</code></pre><p>While in the second line we have a clearly false comparison,
+after <code>fgets</code> we see our input being compared to <code>snlprintf</code>,
+so we try again with <code>snlprintf</code> as input.</p>
+<pre><code>__libc_start_main(0x8048618, 1, 0xffffd784, 0x80486d0 &lt;unfinished ...&gt;
+strcmp(&quot;h0no33&quot;, &quot;kakaka&quot;)                                                        = -1
+printf(&quot;Enter the password&gt; &quot;)                                                    = 20
+fgets(Enter the password&gt; snlprintf
+&quot;snlprintf\n&quot;, 256, 0xf7fc55a0)                                             = 0xffffd590
+strcmp(&quot;snlprintf\n&quot;, &quot;snlprintf\n&quot;)                                              = 0
+puts(&quot;[You've got shell]!&quot;[You've got shell]!
+)                                                       = 20
+geteuid()                                                                         = 12003
+geteuid()                                                                         = 12003
+setreuid(12003, 12003)                                                            = 0
+system(&quot;/bin/sh&quot;$ whoami
+leviathan3
+$ exit
+ &lt;no return ...&gt;
+--- SIGCHLD (Child exited) ---
+&lt;... system resumed&gt; )                                                            = 0
++++ exited (status 0) +++
+</code></pre><p>This got us shell!
+However when running with <code>ltrace</code> the program runs within the <code>leviathan3</code> user.
+Ditching <code>ltrace</code> and running the executable alone gives us the following result.</p>
+<pre><code>/level3 
+Enter the password&gt; snlprintf
+[You've got shell]!
+$ whoami
+leviathan4
+</code></pre><p>Meaning we can get the password for Level 4.</p>
+<pre><code>$ cat /etc/leviathan_pass/leviathan4
+vuH0coox6m
+</code></pre><p>Ta-daaaaa!</p>
+<h1 id="level-4">Level 4</h1>
+<p>Running <code>ls -la</code> so that nothing escapes our grasp shows the following.</p>
+<pre><code>total 24
+drwxr-xr-x  3 root root       4096 Oct 29  2018 .
+drwxr-xr-x 10 root root       4096 Oct 29  2018 ..
+-rw-r--r--  1 root root        220 May 15  2017 .bash_logout
+-rw-r--r--  1 root root       3526 May 15  2017 .bashrc
+-rw-r--r--  1 root root        675 May 15  2017 .profile
+dr-xr-x---  2 root leviathan4 4096 Oct 29  2018 .trash
+</code></pre><p>Diving in the <code>.trash</code> we find the executable <code>bin</code>.
+Running it prints the following output.</p>
+<pre><code>01010100 01101001 01110100 01101000 00110100 01100011 01101111 01101011 01100101 01101001 00001010
+</code></pre><p>Passing it through a binary to ascii converter gives us the password to the next level - <code>Tith4cokei</code>.</p>
+<h1 id="level-5">Level 5</h1>
+<p>Running the same routine we find.</p>
+<pre><code>total 28
+drwxr-xr-x  2 root       root       4096 Oct 29  2018 .
+drwxr-xr-x 10 root       root       4096 Oct 29  2018 ..
+-rw-r--r--  1 root       root        220 May 15  2017 .bash_logout
+-rw-r--r--  1 root       root       3526 May 15  2017 .bashrc
+-r-sr-x---  1 leviathan6 leviathan5 7560 Oct 29  2018 leviathan5
+-rw-r--r--  1 root       root        675 May 15  2017 .profile
+</code></pre><p>And running <code>./leviathan5</code> yields.</p>
+<pre><code>Cannot find /tmp/file.log
+</code></pre><p>Maybe we can do another symbolic link!</p>
+<p>We run <code>ln -s /etc/leviathan_pass/leviathan6 /tmp/file.log</code> to create it
+and afterwards we run the executable.</p>
+<pre><code>leviathan5@leviathan:~$ ./leviathan5 
+UgaoFee4li
+</code></pre><p>Easy peasy, lemon squeezy.</p>
+<h1 id="level-6">Level 6</h1>
+<p>In Level 6 we have a PIN protected executable, given we need a 4 digit-code we can brute force it!</p>
+<p>Using the power of <code>bash</code> we brew a script, dead simple, yet powerfull!</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+<span style="color:#00a8c8">for</span> a in <span style="color:#f92672">{</span>0..9<span style="color:#f92672">}</span>
+<span style="color:#00a8c8">do</span>
+  <span style="color:#00a8c8">for</span> b in <span style="color:#f92672">{</span>0..9<span style="color:#f92672">}</span>
+  <span style="color:#00a8c8">do</span>
+    <span style="color:#00a8c8">for</span> c in <span style="color:#f92672">{</span>0..9<span style="color:#f92672">}</span>
+    <span style="color:#00a8c8">do</span>
+      <span style="color:#00a8c8">for</span> d in <span style="color:#f92672">{</span>0..9<span style="color:#f92672">}</span>
+      <span style="color:#00a8c8">do</span>
+        <span style="color:#111">echo</span> <span style="color:#d88200">&#34;</span><span style="color:#111">$a$b$c$d</span><span style="color:#d88200">&#34;</span>
+        ~/leviathan6 <span style="color:#d88200">&#34;</span><span style="color:#111">$a$b$c$d</span><span style="color:#d88200">&#34;</span>
+      <span style="color:#00a8c8">done</span>
+    <span style="color:#00a8c8">done</span>
+  <span style="color:#00a8c8">done</span>
+<span style="color:#00a8c8">done</span>
+</code></pre></div><p>This will brute force the password and print the codes while doing it!</p>
+<p>We do the following and wait.</p>
+<pre><code>chmod a+x script.sh
+./script
+</code></pre><p>It will stop when the right password was reached, after a long list of numbers and wrongs.</p>
+<pre><code>Wrong
+7120
+Wrong
+7121
+Wrong
+7122
+Wrong
+7123
+$ whoami
+leviathan7
+</code></pre><p>Voilá!</p>
+<p>Now we just <code>cat</code> the password, when we exit the shell the script will continue running,
+there is no point to it, so you can just <code>Ctrl-C</code> to kill it.</p>
+<pre><code>$ cat /etc/leviathan_pass/leviathan7
+ahy7MaeBo9
+</code></pre><h1 id="level-7">Level 7</h1>
+<p>You did it!</p>
+<p>If you enjoyed reading this walkthrough, have comments or fixes on it,
+send me a <!-- raw HTML omitted -->
+<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->.</p>
+
+    </div>
+  </article>
+
+  
+  
+
+
+
+
+
+  <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about">About</a></li>
+         
+          <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <nav id="TableOfContents"></nav>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f">
+      <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&text=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&is_video=false&description=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-pinterest fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Over%20The%20Wire%20-%20Leviathan%20Walkthrough&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f">
+      <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-reddit fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&title=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-digg fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&name=Over%20The%20Wire%20-%20Leviathan%20Walkthrough&description=Level%200%20Arriving%20at%20Level%200%20we%20can%20use%20ls%20-l%20to%20print%20any%20files%2c%20however%20it%20prints%3a%0atotal%200%20So%20we%20should%20maybe%20use%20ls%20-la%20which%20should%20print%3a%0atotal%2024%20drwxr-xr-x%203%20root%20root%204096%20Oct%2029%2021%3a17%20.%20drwxr-xr-x%2010%20root%20root%204096%20Oct%2029%2021%3a17%20..%20drwxr-x---%202%20leviathan1%20leviathan0%204096%20Oct%2029%2021%3a17%20.backup%20-rw-r--r--%201%20root%20root%20220%20May%2015%202017%20.bash_logout%20-rw-r--r--%201%20root%20root%203526%20May%2015%202017%20.">
+      <i class="fab fa-tumblr fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fotw%2fleviathan%2f&t=Over%20The%20Wire%20-%20Leviathan%20Walkthrough">
+      <i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;">
+          <i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;">
+          <i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;">
+          <i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+          <i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+
+  <footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2020  José Duarte 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+
+  </div>
+</body>
+
+<link rel="stylesheet" href=/lib/font-awesome/css/all.min.css>
+<script src=/lib/jquery/jquery.min.js></script>
+<script src=/js/main.js></script>
+
+
+  
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</html>

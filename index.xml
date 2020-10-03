@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>José Duarte</title>
+    <link>https://jmg-duarte.github.io/</link>
+    <description>Recent content on José Duarte</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 14 Sep 2020 21:15:03 +0100</lastBuildDate><atom:link href="https://jmg-duarte.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CSAW Qualifiers 2020 - flask_caching</title>
+      <link>https://jmg-duarte.github.io/posts/ctfs/csaw/qualifiers/flask_caching/</link>
+      <pubDate>Mon, 14 Sep 2020 21:15:03 +0100</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/ctfs/csaw/qualifiers/flask_caching/</guid>
+      <description>We were presented with a simple Flask server, we can see the code bellow (see the full code).
+#!/usr/bin/env python3 from flask import Flask from flask import request, redirect from flask_caching import Cache from redis import Redis import jinja2 import os app = Flask(__name__) app.config[&amp;#39;CACHE_REDIS_HOST&amp;#39;] = &amp;#39;localhost&amp;#39; app.config[&amp;#39;DEBUG&amp;#39;] = False cache = Cache(app, config={&amp;#39;CACHE_TYPE&amp;#39;: &amp;#39;redis&amp;#39;}) redis = Redis(&amp;#39;localhost&amp;#39;) jinja_env = jinja2.Environment(autoescape=[&amp;#39;html&amp;#39;, &amp;#39;xml&amp;#39;]) @app.route(&amp;#39;/&amp;#39;, methods=[&amp;#39;GET&amp;#39;, &amp;#39;POST&amp;#39;]) def notes_post(): if request.method == &amp;#39;GET&amp;#39;: return &amp;#39;&amp;#39;&amp;#39; &amp;lt;h4&amp;gt;Post a note&amp;lt;/h4&amp;gt; &amp;lt;form method=POST enctype=multipart/form-data&amp;gt; &amp;lt;input name=title placeholder=title&amp;gt; &amp;lt;input type=file name=content placeholder=content&amp;gt; &amp;lt;input type=submit&amp;gt; &amp;lt;/form&amp;gt; &amp;#39;&amp;#39;&amp;#39; print(request.</description>
+    </item>
+    
+    <item>
+      <title>ångstromCTF 2020 - CaaSio Writeup</title>
+      <link>https://jmg-duarte.github.io/posts/ctfs/angstrom/caasio/</link>
+      <pubDate>Thu, 19 Mar 2020 08:44:29 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/ctfs/angstrom/caasio/</guid>
+      <description>For CaaSio we had access to a calculator. The source is here.
+Later in the execution our query is eval&amp;rsquo;d so obviously we need to run something interesting there.
+There are a lot of details involved so I&amp;rsquo;ll start with the basic ones.
+if (name.length &amp;gt; 10) { console.log(&amp;#34;Your name is too long, I can&amp;#39;t remember that!&amp;#34;); return; } user.name = name; if (user.name == &amp;#34;such_a_trusted_user_wow&amp;#34;) { user.trusted = true; } The code above stops us from inputing a name bigger than 10 characters, so no way you&amp;rsquo;ll get your such_a_trusted_user_wow.</description>
+    </item>
+    
+    <item>
+      <title>ångstromCTF 2020 - Shifter Writeup</title>
+      <link>https://jmg-duarte.github.io/posts/ctfs/angstrom/shifter/</link>
+      <pubDate>Thu, 19 Mar 2020 08:44:29 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/ctfs/angstrom/shifter/</guid>
+      <description>Connecting to Shifter we are greeted with the following:
+Solve 50 of these epic problems in a row to prove you are a master crypto man like Aplet123! You&#39;ll be given a number n and also a plaintext p. Caesar shift `p` with the nth Fibonacci number. n &amp;lt; 50, p is completely uppercase and alphabetic, len(p) &amp;lt; 50 You have 60 seconds! -------------------- Shift BXRUJEAKBPSKTXDOXETQV by n=22 : They give us a number n and a caesar cipher.</description>
+    </item>
+    
+    <item>
+      <title>ångstromCTF 2020 - Woooosh Writeup</title>
+      <link>https://jmg-duarte.github.io/posts/ctfs/angstrom/woooosh/</link>
+      <pubDate>Thu, 19 Mar 2020 08:44:29 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/ctfs/angstrom/woooosh/</guid>
+      <description>For Woooosh we had a clicker game with an obfuscated clicker game.
+The backend source was given. They used socket.io, so we can do the same.
+Looking at the source they use the first shape as the circle.
+if (dist(game.shapes[0].x, game.shapes[1].y, x, y) &amp;lt; 10) { game.score++; } So when we receive the generated shapes we just need to pick the first!
+I opened a socket and started by emitting start.</description>
+    </item>
+    
+    <item>
+      <title>UTCTF 2020 - Chatt with Bratt Writeup</title>
+      <link>https://jmg-duarte.github.io/posts/ctfs/utctf/chatt/</link>
+      <pubDate>Tue, 10 Mar 2020 08:30:29 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/ctfs/utctf/chatt/</guid>
+      <description>For this challenge we were faced with a chat room with Brad Pid himself! There was a warning though, we could not be rude to Brad because we admins would check the chats.
+With this in mind, we start by trying a simple XSS injection.
+&amp;lt;body onload=alert(&amp;#39;test1&amp;#39;)&amp;gt; Hitting send caused the alert to trigger! So now lets make it a bit more complex, we need some endpoint to make requests to.</description>
+    </item>
+    
+    <item>
+      <title>The Twosum Problem in Linear Time and Constant Space</title>
+      <link>https://jmg-duarte.github.io/posts/interview/twosum/</link>
+      <pubDate>Fri, 21 Feb 2020 16:09:52 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/interview/twosum/</guid>
+      <description>I was recently introduced to the Two Sum problem during SINFO, a tech conference in Lisbon, hosted by IST (Instituto Superior Técnico).
+During the conference, I saw a company offering 20€ to whomever solved their coding problem. The problem is as follows:
+ We have an array of integers, for example:
+[3, -6, 4, -3, 7, 4] We want to find out whether there are two numbers that sum to zero:</description>
+    </item>
+    
+    <item>
+      <title>Hack the Box - fs0ciety</title>
+      <link>https://jmg-duarte.github.io/posts/htb/fs0ciety/</link>
+      <pubDate>Wed, 04 Sep 2019 21:15:03 +0100</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/htb/fs0ciety/</guid>
+      <description>The other day I picked up Hack the Box again. While I don&amp;rsquo;t do boxes, I do challenges given that they are more self contained and don&amp;rsquo;t require much of a setup.
+I took up fs0ciety, a plain reference to Mr. Robot, however I don&amp;rsquo;t think it has much to do with it.
+Our first challenge is to crack a ZIP file. I don&amp;rsquo;t know about you but I&amp;rsquo;ve never cracked a ZIP before, but I&amp;rsquo;ve done brute forcing.</description>
+    </item>
+    
+    <item>
+      <title>Over The Wire - Leviathan Walkthrough</title>
+      <link>https://jmg-duarte.github.io/posts/otw/leviathan/</link>
+      <pubDate>Sun, 31 Mar 2019 00:05:08 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/otw/leviathan/</guid>
+      <description>Level 0 Arriving at Level 0 we can use ls -l to print any files, however it prints:
+total 0 So we should maybe use ls -la which should print:
+total 24 drwxr-xr-x 3 root root 4096 Oct 29 21:17 . drwxr-xr-x 10 root root 4096 Oct 29 21:17 .. drwxr-x--- 2 leviathan1 leviathan0 4096 Oct 29 21:17 .backup -rw-r--r-- 1 root root 220 May 15 2017 .bash_logout -rw-r--r-- 1 root root 3526 May 15 2017 .</description>
+    </item>
+    
+    <item>
+      <title>Over The Wire - Natas Walkthrough</title>
+      <link>https://jmg-duarte.github.io/posts/otw/natas/</link>
+      <pubDate>Sun, 24 Mar 2019 15:59:46 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/otw/natas/</guid>
+      <description>Level 0 Using right-click anywhere on the page should show a menu from where you can select &amp;ldquo;View Page Source&amp;rdquo;, clicking it will show you the page source code. From where you&amp;rsquo;ll see:
+&amp;lt;div id=&amp;#34;content&amp;#34;&amp;gt; You can find the password for the next level on this page. &amp;lt;!--The password for natas1 is gtVrDuiDfck831PqWsLEZy5gyDz1clto --&amp;gt; &amp;lt;/div&amp;gt; We got our password! Open http://natas1.natas.labs.overthewire.org/ and head on to the next level!
+Level 1 So, in this level they disabled right-clicking (or at least they tried, in Firefox you&amp;rsquo;re able to right-click just fine).</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://jmg-duarte.github.io/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/about/</guid>
+      <description>Hello! My name is José Duarte and I am currently finishing my Master&amp;rsquo;s degree in Computer Science at FCT NOVA.
+I am eager to learn more and expand my horizons, constantly looking for experiences and projects, always making the best out of every one. I am a team player, being able to assume responsibility for my errors and willing to improve my skills, being receptive to feedback and able to learn from mistakes.</description>
+    </item>
+    
+  </channel>
+</rss>
