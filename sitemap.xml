@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://jmg-duarte.github.io/posts/ctfs/csaw/qualifiers/flask_caching/</loc>
-    <lastmod>2020-09-14T21:15:03+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jmg-duarte.github.io/</loc>
-    <lastmod>2020-09-14T21:15:03+01:00</lastmod>
+    <lastmod>2020-10-04T14:57:33+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://jmg-duarte.github.io/posts/</loc>
+    <lastmod>2020-10-04T14:57:33+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jmg-duarte.github.io/posts/misc/typesizes/</loc>
+    <lastmod>2020-10-04T14:57:33+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jmg-duarte.github.io/posts/ctfs/csaw/qualifiers/flask_caching/</loc>
     <lastmod>2020-09-14T21:15:03+01:00</lastmod>
   </url>
   

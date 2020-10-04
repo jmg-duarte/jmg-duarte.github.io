@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> Type sizes are not your friends | José Duarte</title>
+  <meta name="description" content="Hello, I am José and on the internet I am known as crit. I am a MSc student at FCT-NOVA and a CTF player at RootLee. My interests revolve around music, photography and computers.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <meta name="googlebot" content="index,follow,snippet,archive">
+  <meta property="og:title" content="Type sizes are not your friends" />
+<meta property="og:description" content="I&rsquo;ve recently “inherited” a codebase, said codebase was poorly adapted from C to compile with C&#43;&#43;. It used raw pointers everywhere, all the libraries used were aimed at C and more&hellip; Said codebase did a lot of socket networking, communicating using a custom “ad hoc” data format.
+The format is fairly simple and follows a pattern of sending the length first and then the content of said length. This is practical because it allows dealing with dynamic data sizes on the fly." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jmg-duarte.github.io/posts/misc/typesizes/" />
+<meta property="article:published_time" content="2020-10-04T14:57:33+01:00" />
+<meta property="article:modified_time" content="2020-10-04T14:57:33+01:00" />
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Type sizes are not your friends"/>
+<meta name="twitter:description" content="I&rsquo;ve recently “inherited” a codebase, said codebase was poorly adapted from C to compile with C&#43;&#43;. It used raw pointers everywhere, all the libraries used were aimed at C and more&hellip; Said codebase did a lot of socket networking, communicating using a custom “ad hoc” data format.
+The format is fairly simple and follows a pattern of sending the length first and then the content of said length. This is practical because it allows dealing with dynamic data sizes on the fly."/>
+
+  
+  
+    
+  
+  
+  <link rel="stylesheet" href="https://jmg-duarte.github.io/css/style-white.css">
+  
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  
+<link rel="icon" type="image/png" href="https://jmg-duarte.github.io/images/favicon.ico" />
+
+  
+</head>
+<body class="max-width mx-auto px3 ltr">
+  <div class="content index py4">
+
+  <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li>
+          <a class="icon" href=" https://jmg-duarte.github.io/posts/ctfs/csaw/qualifiers/flask_caching/">
+            <i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+            <i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i>
+          </a>
+        </li>
+        <li>
+          <a class="icon" href="#">
+            <i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i>
+          </a>
+        </li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f">
+      <i class="fab fa-facebook " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&text=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-twitter " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-linkedin " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&is_video=false&description=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-pinterest " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Type%20sizes%20are%20not%20your%20friends&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f">
+      <i class="fas fa-envelope " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-get-pocket " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-reddit " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-stumbleupon " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-digg " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&name=Type%20sizes%20are%20not%20your%20friends&description=I%26rsquo%3bve%20recently%20%e2%80%9cinherited%e2%80%9d%20a%20codebase%2c%20said%20codebase%20was%20poorly%20adapted%20from%20C%20to%20compile%20with%20C%2b%2b.%20It%20used%20raw%20pointers%20everywhere%2c%20all%20the%20libraries%20used%20were%20aimed%20at%20C%20and%20more%26hellip%3b%20Said%20codebase%20did%20a%20lot%20of%20socket%20networking%2c%20communicating%20using%20a%20custom%20%e2%80%9cad%20hoc%e2%80%9d%20data%20format.%0aThe%20format%20is%20fairly%20simple%20and%20follows%20a%20pattern%20of%20sending%20the%20length%20first%20and%20then%20the%20content%20of%20said%20length.%20This%20is%20practical%20because%20it%20allows%20dealing%20with%20dynamic%20data%20sizes%20on%20the%20fly.">
+      <i class="fab fa-tumblr " aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&t=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-hacker-news " aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <nav id="TableOfContents"></nav>
+    </div>
+  </span>
+</div>
+
+
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+      <h1 class="posttitle" itemprop="name headline">
+        Type sizes are not your friends
+      </h1>
+      <div class="meta">
+        
+        <div class="postdate">
+          
+          <time datetime="2020-10-04 14:57:33 &#43;0100 &#43;0100" itemprop="datePublished">2020-10-04</time>
+          
+        </div>
+        
+        
+      </div>
+    </header>
+
+  
+    <div class="content" itemprop="articleBody">
+      <p>I&rsquo;ve recently “inherited” a codebase, said codebase was poorly adapted from C to compile with C++.
+It used raw pointers everywhere, all the libraries used were aimed at C and more&hellip;
+Said codebase did a lot of socket networking, communicating using a custom “ad hoc” data format.</p>
+<p>The format is fairly simple and follows a pattern of sending the length first and then the content of said length.
+This is practical because it allows dealing with dynamic data sizes on the fly.
+And so, my problem is not about the use of the custom data format,
+my problem is about the code that handles the format.</p>
+<p>Bellow is the code used to receive one of such data packets.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#111">size_t</span> <span style="color:#111">in_len</span><span style="color:#111">;</span>
+<span style="color:#111">untrusted_util</span><span style="color:#f92672">::</span><span style="color:#111">socket_receive</span><span style="color:#111">(</span><span style="color:#111">socket</span><span style="color:#111">,</span> <span style="color:#f92672">&amp;</span><span style="color:#111">in_len</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">size_t</span><span style="color:#111">));</span>
+<span style="color:#00a8c8">void</span> <span style="color:#f92672">*</span><span style="color:#111">in_buffer</span> <span style="color:#f92672">=</span> <span style="color:#111">malloc</span><span style="color:#111">(</span><span style="color:#111">in_len</span><span style="color:#111">);</span>
+<span style="color:#111">untrusted_util</span><span style="color:#f92672">::</span><span style="color:#111">socket_receive</span><span style="color:#111">(</span><span style="color:#111">socket</span><span style="color:#111">,</span> <span style="color:#111">in_buffer</span><span style="color:#111">,</span> <span style="color:#111">in_len</span><span style="color:#111">);</span>
+</code></pre></div><p>As previously stated, the length is read first and then the content.
+The length is encoded as a <code>size_t</code> variable and the content is just a block of bytes.</p>
+<p>The problem here is that <code>size_t</code> or rather any non-fixed integer type do not have a set size according to the standard.</p>
+<blockquote>
+<p>A size modifier specifies the width in bits of the integer representation used.
+The language supports <code>short</code>, <code>long</code>, and <code>long long</code> modifiers.
+A <code>short</code> type must be at least 16 bits wide.
+A <code>long</code> type must be at least 32 bits wide.
+A <code>long long</code> type must be at least 64 bits wide.
+The standard specifies a size relationship between the integral types.</p>
+</blockquote>
+<p>As we can see <a href="https://docs.microsoft.com/en-us/cpp/cpp/fundamental-types-cpp?view=vs-2019#integer-types">here</a>,
+such integer types are defined as “at least X bits wide”, which means it is up to the compiler to decide how many bits to use,
+according to the specification, all integer types could be 64-bit wide and that would be valid!</p>
+<p><strong>So, why is this important?</strong></p>
+<p>Because one cannot expect every device in the network to be the same.
+Unless you&rsquo;re very clear about the compilers and architectures your code supports,
+you must be strict about details like this.</p>
+<p>The following snippet demonstrates the differences in integer type sizes between architectures:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">void</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;int %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#00a8c8">int</span><span style="color:#111">));</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;long %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#00a8c8">long</span><span style="color:#111">));</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;short %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#00a8c8">short</span><span style="color:#111">));</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;size_t %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">size_t</span><span style="color:#111">));</span>
+<span style="color:#111">}</span>
+</code></pre></div><p>When compiling with <code>gcc test.c -o test</code> in a 64-bit system the output produces:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">int 4
+long 8
+short 2
+size_t 8
+</code></pre></div><p>However, when compiling for 32-bit with <code>gcc test.c -m32 -o test</code> the output produces:</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">int 4
+long 4
+short 2
+size_t 4
+</code></pre></div><p>So, when compiling a client/server with different architectures,
+if you want to make communication between them compatible you should use fixed-width integers (e.g. <a href="https://www.cplusplus.com/reference/cstdint/"><code>stdint.h</code></a>).</p>
+<p>The example bellow yields the same result whether compiled for 32 or 64-bit architectures as well as different compilers.</p>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">void</span> <span style="color:#75af00">main</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;int8_t %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">int8_t</span><span style="color:#111">));</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;int16_t %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">int16_t</span><span style="color:#111">));</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;int32_t %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">int32_t</span><span style="color:#111">));</span>
+    <span style="color:#111">printf</span><span style="color:#111">(</span><span style="color:#d88200">&#34;int64_t %ld</span><span style="color:#8045ff">\n</span><span style="color:#d88200">&#34;</span><span style="color:#111">,</span> <span style="color:#00a8c8">sizeof</span><span style="color:#111">(</span><span style="color:#111">int64_t</span><span style="color:#111">));</span>
+<span style="color:#111">}</span>
+</code></pre></div>
+    </div>
+  </article>
+
+  
+  
+
+
+
+
+
+  <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about">About</a></li>
+         
+          <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <nav id="TableOfContents"></nav>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      
+      <ul>
+  
+  
+    
+  
+  
+  <li>
+    <a class="icon" href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f">
+      <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://twitter.com/share?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&text=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-twitter fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&is_video=false&description=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-pinterest fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="mailto:?subject=Type%20sizes%20are%20not%20your%20friends&body=Check out this article: https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f">
+      <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://getpocket.com/save?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://reddit.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-reddit fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.stumbleupon.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://digg.com/submit?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&title=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-digg fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="http://www.tumblr.com/share/link?url=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&name=Type%20sizes%20are%20not%20your%20friends&description=I%26rsquo%3bve%20recently%20%e2%80%9cinherited%e2%80%9d%20a%20codebase%2c%20said%20codebase%20was%20poorly%20adapted%20from%20C%20to%20compile%20with%20C%2b%2b.%20It%20used%20raw%20pointers%20everywhere%2c%20all%20the%20libraries%20used%20were%20aimed%20at%20C%20and%20more%26hellip%3b%20Said%20codebase%20did%20a%20lot%20of%20socket%20networking%2c%20communicating%20using%20a%20custom%20%e2%80%9cad%20hoc%e2%80%9d%20data%20format.%0aThe%20format%20is%20fairly%20simple%20and%20follows%20a%20pattern%20of%20sending%20the%20length%20first%20and%20then%20the%20content%20of%20said%20length.%20This%20is%20practical%20because%20it%20allows%20dealing%20with%20dynamic%20data%20sizes%20on%20the%20fly.">
+      <i class="fab fa-tumblr fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+  <li>
+    <a class="icon" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fjmg-duarte.github.io%2fposts%2fmisc%2ftypesizes%2f&t=Type%20sizes%20are%20not%20your%20friends">
+      <i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i>
+    </a>
+  </li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;">
+          <i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;">
+          <i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;">
+          <i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');">
+          <i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+
+  <footer id="footer">
+  <div class="footer-left">
+    Copyright  &copy; 2020  José Duarte 
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+        <li><a href="/">Home</a></li>
+         
+        <li><a href="/about">About</a></li>
+         
+        <li><a href="/posts">Posts</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+
+  </div>
+</body>
+
+<link rel="stylesheet" href=/lib/font-awesome/css/all.min.css>
+<script src=/lib/jquery/jquery.min.js></script>
+<script src=/js/main.js></script>
+
+
+  
+
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+</html>

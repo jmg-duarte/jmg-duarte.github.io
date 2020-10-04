@@ -6,7 +6,17 @@
     <description>Recent content on José Duarte</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Sep 2020 21:15:03 +0100</lastBuildDate><atom:link href="https://jmg-duarte.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Oct 2020 14:57:33 +0100</lastBuildDate><atom:link href="https://jmg-duarte.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Type sizes are not your friends</title>
+      <link>https://jmg-duarte.github.io/posts/misc/typesizes/</link>
+      <pubDate>Sun, 04 Oct 2020 14:57:33 +0100</pubDate>
+      
+      <guid>https://jmg-duarte.github.io/posts/misc/typesizes/</guid>
+      <description>I&amp;rsquo;ve recently “inherited” a codebase, said codebase was poorly adapted from C to compile with C++. It used raw pointers everywhere, all the libraries used were aimed at C and more&amp;hellip; Said codebase did a lot of socket networking, communicating using a custom “ad hoc” data format.
+The format is fairly simple and follows a pattern of sending the length first and then the content of said length. This is practical because it allows dealing with dynamic data sizes on the fly.</description>
+    </item>
+    
     <item>
       <title>CSAW Qualifiers 2020 - flask_caching</title>
       <link>https://jmg-duarte.github.io/posts/ctfs/csaw/qualifiers/flask_caching/</link>
