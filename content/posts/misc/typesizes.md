@@ -1,7 +1,6 @@
 ---
 title: "Type sizes are not your friends"
 date: 2020-10-04T14:57:33+01:00
-draft: true
 ---
 
 I've recently “inherited” a codebase, said codebase was poorly adapted from C to compile with C++.
